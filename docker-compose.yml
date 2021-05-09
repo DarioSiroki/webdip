@@ -2,9 +2,12 @@ version: "3.3"
 
 services:
   web:
-    image: php:8.0.6-apache
+    image: php:7.3-apache
     depends_on:
       - db
+    # override default startup command by prepending it a line which installs
+    # mysqli extension for PHP and then runs the default startup command
+    command: bash -c "docker-php-ext-install mysqli && apache2-foreground"
     volumes:
       - ./:/var/www/html
     ports:
