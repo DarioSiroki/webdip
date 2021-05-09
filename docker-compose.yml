@@ -1,0 +1,26 @@
+version: "3.3"
+
+services:
+  web:
+    image: php:8.0.6-apache
+    depends_on:
+      - db
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - 8080:80
+
+  db:
+    image: mariadb:10.6.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./database:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080
