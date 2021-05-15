@@ -5,9 +5,8 @@ services:
     image: php:7.3-apache
     depends_on:
       - db
-    # override default startup command by prepending it a line which installs
-    # mysqli extension for PHP and then runs the default startup command
-    command: bash -c "docker-php-ext-install mysqli && apache2-foreground"
+    # install mysqli php ext and enable apache 2 "rewrite" module
+    command: bash -c "docker-php-ext-install mysqli && a2enmod rewrite && apache2-foreground"
     volumes:
       - ./:/var/www/html
     ports:
