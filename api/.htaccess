@@ -1,0 +1,6 @@
+RewriteEngine On
+# Ako je navedena putanja do datoteke ili direktorija, dozvoli direktni pristup
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+# Inace sve redirectaj u index.php routeru
+RewriteRule . index.php [L]
