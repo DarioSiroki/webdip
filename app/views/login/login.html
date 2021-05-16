@@ -1,0 +1,30 @@
+<div id="login">
+  <div class="form-item">
+    <label for="email">Email:</label>
+    <input
+      placeholder="Email"
+      class="form-input"
+      type="text"
+      name="email"
+      id="email"
+      ng-model="email"
+    />
+  </div>
+  <div class="form-item">
+    <label for="lozinka">Lozinka:</label>
+    <input
+      placeholder="Password"
+      class="form-input"
+      type="password"
+      name="lozinka"
+      id="lozinka"
+      ng-model="password"
+    />
+  </div>
+
+  <div class="form-item">
+    <button class="form-input" type="submit" value="Submit" ng-click="login()">
+      Prijava
+    </button>
+  </div>
+</div>

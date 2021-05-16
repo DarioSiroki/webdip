@@ -1,0 +1,28 @@
+<style>
+  header {
+    padding: 40px 20px 40px 20px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  header a {
+    color: black;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: inline;
+  }
+
+  .active {
+    background-color: #60b979;
+    padding: 20px;
+    border-radius: 100px;
+  }
+</style>
+
+<header class="topnav" ng-init="display = 'none';">
+  <a href="#!" ng-class="isActive('/')">Početna</a>
+  <span style="float: right">
+    <a href="#!prijava" ng-class="isActive('/prijava')">Prijava</a>
+  </span>
+</header>
