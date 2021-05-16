@@ -6,7 +6,7 @@ require_once("models/korisnik.model.php");
 class KorisnikController
 {
     /**
-     * Login user and store his information to session variable
+     * Login user, store his information to session variable and return the user info which is not sensitive.
      */
     public function login() 
     {
@@ -24,6 +24,8 @@ class KorisnikController
             $korisnik = $result->fetch_assoc();
             session_start();
             $_SESSION["korisnik"] = $korisnik;
+            $returnValue = json_encode($korisnik);
+            echo $returnValue;
         } else 
         {
             header("HTTP/1.1 401 Unauthorized");
@@ -31,6 +33,9 @@ class KorisnikController
         }
     }
 
+    /**
+     * Registers a new user if user with his name doesn't already exist.
+     */
     public function register() 
     {
         $korisnik = new KorisnikModel();
@@ -61,6 +66,15 @@ class KorisnikController
         }
 
         header("HTTP/1.1 500 Internal server error");
+    }
+
+    /**
+     * Destroys the session for current user.
+     */
+    public function log_out() 
+    {
+        session_start();
+        session_destroy();
     }
 }
 

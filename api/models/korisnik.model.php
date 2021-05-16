@@ -17,9 +17,16 @@ class KorisnikModel
         $this->$connection->close();
     }
 
+    /**
+     * Returns all the records matching provided email and password.
+     * Function returns non-sensitive data only about users.
+     */
     public function login($email, $password_sha256) 
     {
-        $query = "SELECT * FROM korisnik WHERE email=? AND lozinka_sha256=?";
+        $query = "SELECT ime, prezime, korisnicko_ime, naziv as uloga FROM korisnik "  .
+        "LEFT JOIN uloga on uloga.uloga_id=korisnik.uloga_id " .
+        "WHERE email=? " .
+        "AND lozinka_sha256=? ";
         $statement = $this->$connection->prepare($query);
         $statement->bind_param("ss", $email, $password_sha256);
         $statement->execute();
@@ -53,7 +60,7 @@ class KorisnikModel
      */
     public function user_exists($korisnicko_ime) 
     {
-        $query = "SELECT * FROM korisnik WHERE korisnicko_ime=?";
+        $query = "SELECT 1 FROM korisnik WHERE korisnicko_ime=?";
         $statement = $this->$connection->prepare($query);
         $statement->bind_param("s", $korisnicko_ime);
         $statement->execute();
