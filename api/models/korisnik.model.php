@@ -3,9 +3,8 @@
 namespace Znamenitosti;
 include_once("config/database.php");
 
-class Korisnik 
+class KorisnikModel
 {
-    private $table_name = "korisnik";
     private $connection;
 
     public function __construct() 
@@ -25,6 +24,41 @@ class Korisnik
         $statement->bind_param("ss", $email, $password_sha256);
         $statement->execute();
         $result = $statement->get_result();
+        $statement->close();
+        return $result;
+    }
+
+    /**
+     * @return bool - true if user was successfully inserted, false otherwise
+     */
+    public function register(
+            $ime, $prezime, $korisnicko_ime, $email, $lozinka, $lozinka_sha256, $uloga_naziv="registrirani_korisnik"
+        ) 
+        {
+        $query = "INSERT INTO korisnik (ime, prezime, korisnicko_ime, email, lozinka, lozinka_sha256, uloga_id) " .
+                "SELECT ?, ?, ?, ?, ?, ?, uloga.uloga_id " . 
+                "FROM uloga " . 
+                "WHERE uloga.naziv=?";
+        $statement = $this->$connection->prepare($query);
+        $statement->bind_param("sssssss", $ime, $prezime, $korisnicko_ime, $email, $lozinka, $lozinka_sha256, $uloga_naziv);
+        $statement->execute();
+        $result = $statement->get_result();
+        $result = $statement->affected_rows == 1;
+        $statement->close();
+        return $result;
+    }
+
+    /**
+     * @return bool - user does/doesn't exist
+     */
+    public function user_exists($korisnicko_ime) 
+    {
+        $query = "SELECT * FROM korisnik WHERE korisnicko_ime=?";
+        $statement = $this->$connection->prepare($query);
+        $statement->bind_param("s", $korisnicko_ime);
+        $statement->execute();
+        $result = $statement->get_result();
+        $result = $result->num_rows > 0;
         $statement->close();
         return $result;
     }

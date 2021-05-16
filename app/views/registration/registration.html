@@ -1,0 +1,82 @@
+<div id="registration">
+  <div class="form-item">
+    <label for="ime">Ime:</label>
+    <input
+      placeholder="Ime"
+      class="form-input"
+      type="text"
+      name="ime"
+      id="ime"
+      ng-model="firstName"
+    />
+  </div>
+  <div class="form-item">
+    <label for="prezime">Prezime:</label>
+    <input
+      placeholder="Prezime"
+      class="form-input"
+      type="text"
+      name="prezime"
+      id="prezime"
+      ng-model="secondName"
+    />
+  </div>
+  <div class="form-item">
+    <label for="korisnicko_ime">Korisničko ime:</label>
+    <input
+      placeholder="Korisničko ime"
+      class="form-input"
+      type="text"
+      name="korisnicko_ime"
+      id="korisnicko_ime"
+      ng-model="userName"
+    />
+  </div>
+  <div class="form-item">
+    <label for="email">Email:</label>
+    <input
+      placeholder="Email"
+      class="form-input"
+      type="password"
+      name="email"
+      id="email"
+      ng-model="email"
+    />
+  </div>
+  <div class="form-item">
+    <label for="lozinka">Lozinka:</label>
+    <input
+      placeholder="..."
+      class="form-input"
+      type="password"
+      name="lozinka"
+      id="lozinka"
+      ng-model="password"
+    />
+  </div>
+  <div class="form-item">
+    <label for="lozinka-ponovi">Ponovite lozinku:</label>
+    <input
+      ng-keyup="validatePasswordRepeat()"
+      placeholder="..."
+      class="form-input"
+      type="password"
+      name="lozinka-ponovi"
+      id="lozinka-ponovi"
+      ng-model="passwordRepeat"
+    />
+    <br />
+  </div>
+  <small style="color: red"> {{ errorMsg }} </small>
+
+  <div class="form-item">
+    <button
+      class="form-input"
+      type="submit"
+      value="Submit"
+      ng-click="register()"
+    >
+      Registracija
+    </button>
+  </div>
+</div>

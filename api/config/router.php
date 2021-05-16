@@ -29,7 +29,8 @@ class Router
         });
 
 
-        $this->$router->post('/login', 'Login@login');
+        $this->$router->post('/login', 'KorisnikController@login');
+        $this->$router->post('/register', 'KorisnikController@register');
     }
 
     private function init() 

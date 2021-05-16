@@ -3,6 +3,7 @@ const app = angular.module("znamenitosti", [
   "angularCSS",
   "loginModule",
   "homeModule",
+  "registrationModule",
   "apiModule",
   "menuModule",
 ]);
@@ -24,5 +25,13 @@ app.config(function ($routeProvider) {
       },
       templateUrl: "views/login/login.html",
       controller: "loginController",
+    })
+    .when("/registracija", {
+      css: {
+        href: "views/registration/registration.css",
+        bustCache: true,
+      },
+      templateUrl: "views/registration/registration.html",
+      controller: "registrationController",
     });
 });
