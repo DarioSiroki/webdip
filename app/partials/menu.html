@@ -23,8 +23,16 @@
 <header class="topnav" ng-init="display = 'none';">
   <a href="#!" ng-class="isActive('/')">Početna</a>
   <span style="float: right">
-    <a href="#!prijava" ng-class="isActive('/prijava')">Prijava</a>
-    <a href="#!registracija" ng-class="isActive('/registracija')"
+    <a href="#!prijava" ng-class="isActive('/prijava')" ng-if="!isLoggedIn()"
+      >Prijava</a
+    >
+    <a href="javascript:void(0)" ng-if="isLoggedIn()" ng-click="logOut()"
+      >Odjava</a
+    >
+    <a
+      href="#!registracija"
+      ng-class="isActive('/registracija')"
+      ng-if="!isLoggedIn()"
       >Registracija</a
     >
   </span>

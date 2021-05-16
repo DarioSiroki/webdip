@@ -2,15 +2,10 @@ angular.module("apiModule", []).service("apiService", function ($http) {
   const baseURL = "/api";
 
   this.login = async function (email, password) {
-    try {
-      const response = await $http.post(baseURL + "/login", {
-        email,
-        password,
-      });
-      console.log(response);
-    } catch (e) {
-      console.log(e);
-    }
+    return $http.post(baseURL + "/login", {
+      email,
+      password,
+    });
   };
 
   this.register = async function (
@@ -27,5 +22,9 @@ angular.module("apiModule", []).service("apiService", function ($http) {
       email,
       password,
     });
+  };
+
+  this.logout = async function () {
+    return $http.post(baseURL + "/logout");
   };
 });
