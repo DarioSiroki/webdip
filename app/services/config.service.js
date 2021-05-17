@@ -1,6 +1,12 @@
 angular
   .module("configModule", [])
   .service("configService", function ($cookies) {
+    // Constants
+
+    this.CAPTCHA_KEY = "6LfMpNcaAAAAAA75RmarKUWkGoZCXuCf13s1cylS";
+
+    // Authenthication
+
     this.routeChangeStart = function (event, next, current) {
       const access = next.$$route.allowed;
 

@@ -2,6 +2,7 @@
 
 namespace Znamenitosti;
 require_once("models/korisnik.model.php");
+require_once("config/settings.php");
 
 class KorisnikController
 {
@@ -10,9 +11,16 @@ class KorisnikController
      */
     public function login() 
     {
-        $korisnik = new KorisnikModel();
-
         $form_data = json_decode(file_get_contents("php://input"));
+
+        $captcha_response = $this->get_captcha($form_data->token);
+
+        if ($captcha_response->success == false || $captcha_response->score < 0.5) {
+            header("HTTP/1.1 409 Too Many Requests");
+            return;
+        }
+
+        $korisnik = new KorisnikModel();
 
         $email = $form_data->email;
         $password_sha256 = hash("sha256", $form_data->password);
@@ -75,6 +83,22 @@ class KorisnikController
     {
         session_start();
         session_destroy();
+    }
+
+    /**
+     * Returns captcha score for the token that user had submitted.
+     */
+    public function get_captcha($secret_key){
+        $secret = Settings::get_recaptcha_site_key();
+        $url = "https://www.google.com/recaptcha/api/siteverify?secret=" . $secret . "&response={$secret_key}";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        
+        return json_decode($response);
     }
 }
 
