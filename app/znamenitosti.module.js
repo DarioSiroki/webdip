@@ -8,6 +8,7 @@ const app = angular.module("znamenitosti", [
   "apiModule",
   "menuModule",
   "configModule",
+  "validationModule",
 ]);
 
 app.config(function ($routeProvider) {

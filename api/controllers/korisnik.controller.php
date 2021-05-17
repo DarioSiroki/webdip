@@ -51,10 +51,35 @@ class KorisnikController
         $form_data = json_decode(file_get_contents("php://input"));
 
         $email = $form_data->email;
+        if (!preg_match("/^.+@.+\..+$/", $email)) {
+            header("HTTP/1.1 400 Bad request");
+            echo "Neispravan email.";  
+            return;
+        }
         $password = $form_data->password;
+        if (preg_match("/^(.{0,7}|[^0-9]*|[^A-Z]*|[^a-z]*|[a-zA-Z0-9]*)$/", $password)) {
+            header("HTTP/1.1 400 Bad request");
+            echo "Neispravna lozinka.";  
+            return;
+        }
         $first_name = $form_data->first_name;
+        if (strlen($first_name) < 3) {
+            header("HTTP/1.1 400 Bad request");
+            echo "Ime mora sadržavati barem 3 znaka.";  
+            return;
+        }
         $second_name = $form_data->second_name;
+        if (strlen($second_name) < 3) {
+            header("HTTP/1.1 400 Bad request");
+            echo "Prezime mora sadržavati barem 3 znaka.";  
+            return;
+        }
         $user_name = $form_data->user_name;
+        if (strlen($user_name) < 3) {
+            header("HTTP/1.1 400 Bad request");
+            echo "Korisničko ime mora sadržavati barem 3 znaka.";  
+            return;
+        }
         $password_sha256 = hash("sha256", $password);
 
         $user_exists = $korisnik->user_exists($user_name);

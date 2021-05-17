@@ -8,8 +8,10 @@
       name="ime"
       id="ime"
       ng-model="firstName"
+      ng-keyup="validateFirstName()"
     />
   </div>
+  <small style="color: red"> {{ firstNameError }} </small>
   <div class="form-item">
     <label for="prezime">Prezime:</label>
     <input
@@ -19,8 +21,10 @@
       name="prezime"
       id="prezime"
       ng-model="secondName"
+      ng-keyup="validateSecondName()"
     />
   </div>
+  <small style="color: red"> {{ secondNameError }} </small>
   <div class="form-item">
     <label for="korisnicko_ime">Korisničko ime:</label>
     <input
@@ -30,19 +34,23 @@
       name="korisnicko_ime"
       id="korisnicko_ime"
       ng-model="userName"
+      ng-keyup="validateUsername()"
     />
   </div>
+  <small style="color: red"> {{ userNameError }} </small>
   <div class="form-item">
     <label for="email">Email:</label>
     <input
       placeholder="Email"
       class="form-input"
-      type="password"
+      type="text"
       name="email"
       id="email"
       ng-model="email"
+      ng-keyup="validateEmail()"
     />
   </div>
+  <small style="color: red"> {{ emailError }} </small>
   <div class="form-item">
     <label for="lozinka">Lozinka:</label>
     <input
@@ -52,8 +60,10 @@
       name="lozinka"
       id="lozinka"
       ng-model="password"
+      ng-keyup="validatePassword()"
     />
   </div>
+  <small style="color: red"> {{ passwordError }} </small>
   <div class="form-item">
     <label for="lozinka-ponovi">Ponovite lozinku:</label>
     <input
