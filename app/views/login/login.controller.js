@@ -6,8 +6,12 @@ angular
       if (configService.isLoggedIn()) {
         $location.path("/");
       }
+      if ($location.$$url.indexOf("s=register") > -1) {
+        $scope.requireActivationCode = true;
+      }
 
       $scope.errorMsg = "";
+      $scope.activationCode = "";
 
       $scope.login = async function () {
         const token = await grecaptcha.execute(configService.CAPTCHA_KEY, {
@@ -20,7 +24,8 @@ angular
           const result = await apiService.login(
             $scope.email,
             $scope.password,
-            token
+            token,
+            $scope.activationCode
           );
           // Save user data to cookies
           configService.setUserData(result.data);
@@ -30,7 +35,12 @@ angular
             $scope.errorMsg =
               "Detektirana je sumnjiva aktivnost s vaše lokacije. Pokušajte ponovno kasnije.";
           } else {
-            $scope.errorMsg = "Ne postoji korisnik sa ovim podacima.";
+            if (response.data == "Korisnik nije aktiviran") {
+              alert("Unesite kod za aktivaciju koji Vam je poslan na mail.");
+              $scope.requireActivationCode = true;
+            } else {
+              $scope.errorMsg = response.data;
+            }
           }
         } finally {
           $scope.$apply();

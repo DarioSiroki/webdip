@@ -2,6 +2,7 @@
 
 namespace Znamenitosti;
 require_once("models/korisnik.model.php");
+require_once("models/aktivacijski_kod.model.php");
 require_once("config/settings.php");
 
 class KorisnikController
@@ -12,7 +13,6 @@ class KorisnikController
     public function login() 
     {
         $form_data = json_decode(file_get_contents("php://input"));
-
         $captcha_response = $this->get_captcha($form_data->token);
 
         if ($captcha_response->success == false || $captcha_response->score < 0.5) {
@@ -24,21 +24,64 @@ class KorisnikController
 
         $email = $form_data->email;
         $password_sha256 = hash("sha256", $form_data->password);
+        $activationCode = $form_data->activationCode;
 
         $result = $korisnik->login($email, $password_sha256);
         
-        if ($result->num_rows > 0) 
-        {
-            $korisnik = $result->fetch_assoc();
-            session_start();
-            $_SESSION["korisnik"] = $korisnik;
-            $returnValue = json_encode($korisnik);
-            echo $returnValue;
-        } else 
+        if ($result->num_rows == 0) 
         {
             header("HTTP/1.1 401 Unauthorized");
+            echo "Ne postoji korisnik sa ovim podacima.";
+            return;
+        }
+
+        $korisnik = $result->fetch_assoc();
+
+        $wasActivated = false;
+        if(strlen($activationCode) > 0) {
+            $wasActivated = $this->activate_user($korisnik["korisnik_id"], $activationCode);
+        }
+
+        if ($korisnik["uloga"] == "neregistrirani_korisnik" && !$wasActivated) 
+        {
+            header("HTTP/1.1 401 Unauthorized");
+            echo "Korisnik nije aktiviran";
+            return;
+        }
+
+        session_start();
+        $_SESSION["korisnik"] = $korisnik;
+        $returnValue = json_encode($korisnik);
+        echo $returnValue;
+    }
+
+    public function activate_user($userId, $activationCode) 
+    {
+        $aktivacijski_kod_model = new AktivacijskiKodModel();
+        $activationCodeResult = $aktivacijski_kod_model->get_code($userId, (int)$activationCode);
+
+        if ($activationCodeResult->num_rows == 0) 
+        {
+            header("HTTP/1.1 401 Unauthorized");
+            echo "Ovaj aktivacijski kod ne postoji";
             exit;
         }
+        
+        $activationCodeEntity = $activationCodeResult->fetch_assoc();
+        $kreirano = strtotime($activationCodeEntity["kreirano"]);
+        $now = time();
+        $diff = $now - $kreirano;
+        if ($diff > 14*60*60) 
+        {
+            header("HTTP/1.1 401 Unauthorized");
+            echo "Aktivacijski kod je istekao.";
+            exit;
+        }
+
+        $korisnik = new KorisnikModel();
+        $korisnik->activate($userId);
+
+        return true;
     }
 
     /**
@@ -46,12 +89,11 @@ class KorisnikController
      */
     public function register() 
     {
-        $korisnik = new KorisnikModel();
-
         $form_data = json_decode(file_get_contents("php://input"));
 
         $email = $form_data->email;
-        if (!preg_match("/^.+@.+\..+$/", $email)) {
+        if (!preg_match("/^.+@.+\..+$/", $email)) 
+        {
             header("HTTP/1.1 400 Bad request");
             echo "Neispravan email.";  
             return;
@@ -63,25 +105,29 @@ class KorisnikController
             return;
         }
         $first_name = $form_data->first_name;
-        if (strlen($first_name) < 3) {
+        if (strlen($first_name) < 3) 
+        {
             header("HTTP/1.1 400 Bad request");
             echo "Ime mora sadržavati barem 3 znaka.";  
             return;
         }
         $second_name = $form_data->second_name;
-        if (strlen($second_name) < 3) {
+        if (strlen($second_name) < 3) 
+        {
             header("HTTP/1.1 400 Bad request");
             echo "Prezime mora sadržavati barem 3 znaka.";  
             return;
         }
         $user_name = $form_data->user_name;
-        if (strlen($user_name) < 3) {
+        if (strlen($user_name) < 3) 
+        {
             header("HTTP/1.1 400 Bad request");
             echo "Korisničko ime mora sadržavati barem 3 znaka.";  
             return;
         }
         $password_sha256 = hash("sha256", $password);
 
+        $korisnik = new KorisnikModel();
         $user_exists = $korisnik->user_exists($user_name);
 
         if ($user_exists)
@@ -90,15 +136,11 @@ class KorisnikController
           return;
         }
 
-        $result = $korisnik->register($first_name, $second_name, $user_name, $email, $password, $password_sha256);
-
-        if ($result == true) 
-        {
-            session_start();
-            return;
-        }
-
-        header("HTTP/1.1 500 Internal server error");
+        $newUserId = $korisnik->register($first_name, $second_name, $user_name, $email, $password, $password_sha256);
+        
+        $aktivacijski_kod = new AktivacijskiKodModel();
+        $activationCode = $aktivacijski_kod->insert_code($newUserId);
+        mail($activationCode, "Znamenitosti Hrvatske - Aktivacijski kod", "Vaš aktivacijski kod: " . $activationCode);
     }
 
     /**

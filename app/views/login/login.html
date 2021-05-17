@@ -21,6 +21,20 @@
       ng-model="password"
     />
   </div>
+  <div
+    class="form-item"
+    ng-style="{'display': requireActivationCode ? 'block':'none'}"
+  >
+    <label for="authCode">Aktivacijski kod:</label>
+    <input
+      placeholder="Aktivacijski kod"
+      class="form-input"
+      type="text"
+      name="authCode"
+      id="authCode"
+      ng-model="activationCode"
+    />
+  </div>
   <small style="color: red"> {{ errorMsg }} </small>
 
   <div class="form-item">

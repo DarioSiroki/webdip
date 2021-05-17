@@ -2,7 +2,7 @@ angular
   .module("registrationModule", [])
   .controller(
     "registrationController",
-    function ($scope, apiService, validationService) {
+    function ($scope, apiService, validationService, $location) {
       $scope.errorMsg = "";
 
       $scope.validatePasswordRepeat = function () {
@@ -86,7 +86,7 @@ angular
           );
 
           if (result.status === 200) {
-            console.log("trebalo bi mail slozit dar0");
+            $location.path("/prijava?s=register");
           }
           $scope.errorMsg = "";
         } catch (result) {

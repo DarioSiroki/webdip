@@ -23,7 +23,7 @@ class KorisnikModel
      */
     public function login($email, $password_sha256) 
     {
-        $query = "SELECT ime, prezime, korisnicko_ime, naziv as uloga FROM korisnik "  .
+        $query = "SELECT korisnik_id, ime, prezime, korisnicko_ime, naziv as uloga FROM korisnik "  .
         "LEFT JOIN uloga on uloga.uloga_id=korisnik.uloga_id " .
         "WHERE email=? " .
         "AND lozinka_sha256=? ";
@@ -36,10 +36,10 @@ class KorisnikModel
     }
 
     /**
-     * @return bool - true if user was successfully inserted, false otherwise
+     * @return int - new users ID
      */
     public function register(
-            $ime, $prezime, $korisnicko_ime, $email, $lozinka, $lozinka_sha256, $uloga_naziv="registrirani_korisnik"
+            $ime, $prezime, $korisnicko_ime, $email, $lozinka, $lozinka_sha256, $uloga_naziv="neregistrirani_korisnik"
         ) 
         {
         $query = "INSERT INTO korisnik (ime, prezime, korisnicko_ime, email, lozinka, lozinka_sha256, uloga_id) " .
@@ -49,10 +49,9 @@ class KorisnikModel
         $statement = $this->$connection->prepare($query);
         $statement->bind_param("sssssss", $ime, $prezime, $korisnicko_ime, $email, $lozinka, $lozinka_sha256, $uloga_naziv);
         $statement->execute();
-        $result = $statement->get_result();
-        $result = $statement->affected_rows == 1;
+        $newId = $statement->insert_id;
         $statement->close();
-        return $result;
+        return $newId;
     }
 
     /**
@@ -68,6 +67,15 @@ class KorisnikModel
         $result = $result->num_rows > 0;
         $statement->close();
         return $result;
+    }
+
+    public function activate($korisnikId)
+    {
+        $query = "UPDATE korisnik SET uloga_id=2 WHERE korisnik_id=?";
+        $statement = $this->$connection->prepare($query);
+        $statement->bind_param("i", $korisnikId);
+        $statement->execute();
+        $statement->close();
     }
 }
 
