@@ -140,7 +140,7 @@ class KorisnikController
         
         $aktivacijski_kod = new AktivacijskiKodModel();
         $activationCode = $aktivacijski_kod->insert_code($newUserId);
-        mail($activationCode, "Znamenitosti Hrvatske - Aktivacijski kod", "Vaš aktivacijski kod: " . $activationCode);
+        mail($email, "Znamenitosti Hrvatske - Aktivacijski kod", "Vaš aktivacijski kod: " . $activationCode);
     }
 
     /**
