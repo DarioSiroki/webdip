@@ -29,4 +29,8 @@ angular.module("apiModule", []).service("apiService", function ($http) {
   this.logout = async function () {
     return $http.post(baseURL + "/logout");
   };
+
+  this.getStats = async function () {
+    return $http.get(baseURL + "/znamenitost/statistika");
+  };
 });

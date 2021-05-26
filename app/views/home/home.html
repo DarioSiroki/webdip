@@ -1,3 +1,23 @@
 <div id="naslovna">
   <h1>Znamenitosti <span style="color: red">Hrvatske</span></h1>
 </div>
+<br />
+<hr />
+<br />
+<table>
+  <thead>
+    <tr>
+      <th>Grad</th>
+      <th>Broj znamenitosti</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="stat in stats">
+      <td>{{ stat.naziv }}</td>
+      <td>{{ stat.broj_znamenitosti }}</td>
+    </tr>
+  </tbody>
+</table>
+<br />
+<hr />
+<br />

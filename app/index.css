@@ -11,3 +11,7 @@ body {
 .footer-fix {
   margin-top: auto;
 }
+
+* {
+  box-sizing: border-box;
+}

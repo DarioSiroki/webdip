@@ -22,7 +22,7 @@ class KorisnikController
 
         $korisnik = new KorisnikModel();
 
-        $user_name = $form_data->username$user_name;
+        $user_name = $form_data->username;
         $password_sha256 = hash("sha256", $form_data->password);
         $activationCode = $form_data->activationCode;
 
