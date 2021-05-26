@@ -34,6 +34,7 @@ class Router
         $this->$router->post('/logout', 'KorisnikController@log_out');
         $this->$router->get('/znamenitost/statistika', 'ZnamenitostController@dohvati_statistiku');
         $this->$router->get('/znamenitost/popis_znamenitosti_i_autora', 'ZnamenitostController@popis_znamenitosti_i_autora');
+        $this->$router->get('/grad', 'GradController@dohvati_gradove');
     }
 
     private function init() 
