@@ -37,4 +37,8 @@ angular.module("apiModule", []).service("apiService", function ($http) {
   this.getListOfLandmarksAndOwners = async function () {
     return $http.get(baseURL + "/znamenitost/popis_znamenitosti_i_autora");
   };
+
+  this.getCities = async function () {
+    return $http.get(baseURL + "/grad");
+  };
 });

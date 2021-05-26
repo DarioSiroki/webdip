@@ -1,0 +1,69 @@
+<div id="prijedlog">
+  <div class="form-item">
+    <label for="naziv">Naziv:</label>
+    <input
+      placeholder="Naziv"
+      class="form-input"
+      type="text"
+      name="naziv"
+      id="naziv"
+      ng-model="naziv"
+    />
+  </div>
+  <div class="form-item">
+    <label for="naziv">Opis:</label>
+    <textarea name="opis" id="opis" ng-model="opis"></textarea>
+  </div>
+
+  <div class="form-item">
+    <label for="grad">Grad:</label>
+
+    <select name="grad" id="grad" style="width: 40vw">
+      <option ng-repeat="grad in gradovi" value="{{grad.naziv}}">
+        {{grad.naziv}}
+      </option>
+    </select>
+  </div>
+
+  <div class="form-item">
+    <label for="ime">Ime:</label>
+    <input
+      placeholder="Ime"
+      class="form-input"
+      type="text"
+      name="ime"
+      id="ime"
+      ng-model="ime"
+    />
+  </div>
+
+  <div class="form-item">
+    <label for="prezime">Prezime:</label>
+    <input
+      placeholder="Prezime"
+      class="form-input"
+      type="text"
+      name="prezime"
+      id="prezime"
+      ng-model="prezime"
+    />
+  </div>
+
+  <div class="form-item">
+    <label for="nadimak">Nadimak:</label>
+    <input
+      placeholder="Nadimak"
+      class="form-input"
+      type="text"
+      name="nadimak"
+      id="nadimak"
+      ng-model="nadimak"
+    />
+  </div>
+
+  <div class="form-item">
+    <button class="form-input" type="submit" value="Submit" ng-click="send()">
+      Pošalji
+    </button>
+  </div>
+</div>
