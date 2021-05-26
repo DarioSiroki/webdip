@@ -10,6 +10,7 @@ const app = angular.module("znamenitosti", [
   "configModule",
   "validationModule",
   "znamenitostiModule",
+  "prijedlogModule",
 ]);
 
 app.config(function ($routeProvider) {
@@ -49,6 +50,15 @@ app.config(function ($routeProvider) {
       allowed: "all",
       templateUrl: "views/znamenitosti/znamenitosti.html",
       controller: "znamenitostiController",
+    })
+    .when("/prijedlog", {
+      css: {
+        href: "views/prijedlog/prijedlog.css",
+        bustCache: true,
+      },
+      allowed: "all",
+      templateUrl: "views/prijedlog/prijedlog.html",
+      controller: "prijedlogController",
     });
 });
 
