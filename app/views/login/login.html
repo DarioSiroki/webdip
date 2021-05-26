@@ -1,13 +1,13 @@
 <div id="login">
   <div class="form-item">
-    <label for="email">Email:</label>
+    <label for="korime">Korisničko ime:</label>
     <input
-      placeholder="Email"
+      placeholder="Korisničko ime"
       class="form-input"
       type="text"
-      name="email"
-      id="email"
-      ng-model="email"
+      name="korime"
+      id="korime"
+      ng-model="korime"
     />
   </div>
   <div class="form-item">
@@ -35,6 +35,16 @@
       ng-model="activationCode"
     />
   </div>
+  <div class="form-item">
+    <label for="zapamtiMe">Zapamti me</label>
+    <input
+      type="checkbox"
+      id="zapamtiMe"
+      name="zapamtiMe"
+      ng-model="zapamtiMe"
+    />
+  </div>
+
   <small style="color: red"> {{ errorMsg }} </small>
 
   <div class="form-item">

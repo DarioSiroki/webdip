@@ -10,6 +10,13 @@ angular
         $scope.requireActivationCode = true;
       }
 
+      const lastUserName = configService.getLastLoggedInUsername();
+
+      if (lastUserName) {
+        // slice first and last character because username will be pulled out of storage as "username"
+        $scope.korime = lastUserName.slice(1, lastUserName.length - 1);
+      }
+
       $scope.errorMsg = "";
       $scope.activationCode = "";
 
@@ -22,13 +29,19 @@ angular
         document.body.style.cursor = "wait";
         try {
           const result = await apiService.login(
-            $scope.email,
+            $scope.korime,
             $scope.password,
             token,
             $scope.activationCode
           );
           // Save user data to cookies
           configService.setUserData(result.data);
+          // Save or clear remember me in cookies
+          if ($scope.zapamtiMe) {
+            configService.setLastLoggedInUsername($scope.korime);
+          } else {
+            configService.clearLastLoggedInUsername();
+          }
           $location.path("/");
         } catch (response) {
           if (response.status === 409) {

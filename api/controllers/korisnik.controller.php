@@ -22,11 +22,11 @@ class KorisnikController
 
         $korisnik = new KorisnikModel();
 
-        $email = $form_data->email;
+        $user_name = $form_data->username$user_name;
         $password_sha256 = hash("sha256", $form_data->password);
         $activationCode = $form_data->activationCode;
 
-        $result = $korisnik->login($email, $password_sha256);
+        $result = $korisnik->login($user_name, $password_sha256);
         
         if ($result->num_rows == 0) 
         {

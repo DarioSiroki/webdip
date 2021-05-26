@@ -21,14 +21,14 @@ class KorisnikModel
      * Returns all the records matching provided email and password.
      * Function returns non-sensitive data only about users.
      */
-    public function login($email, $password_sha256) 
+    public function login($korisnicko_ime, $password_sha256) 
     {
         $query = "SELECT korisnik_id, ime, prezime, korisnicko_ime, naziv as uloga FROM korisnik "  .
         "LEFT JOIN uloga on uloga.uloga_id=korisnik.uloga_id " .
-        "WHERE email=? " .
+        "WHERE korisnicko_ime=? " .
         "AND lozinka_sha256=? ";
         $statement = $this->$connection->prepare($query);
-        $statement->bind_param("ss", $email, $password_sha256);
+        $statement->bind_param("ss", $korisnicko_ime, $password_sha256);
         $statement->execute();
         $result = $statement->get_result();
         $statement->close();

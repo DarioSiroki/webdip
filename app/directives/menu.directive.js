@@ -24,7 +24,7 @@ angular.module("menuModule", []).directive("znamenitostiMenu", function () {
       $scope.logOut = async function () {
         try {
           await apiService.logout();
-          $cookies.remove("userData");
+          configService.clearUserData();
           $route.reload();
         } catch (e) {
           alert(

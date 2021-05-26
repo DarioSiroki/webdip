@@ -36,4 +36,20 @@ angular
     this.getUserData = function () {
       return $cookies.getObject("userData");
     };
+
+    this.clearUserData = function () {
+      $cookies.remove("userData");
+    };
+
+    this.setLastLoggedInUsername = function (userName) {
+      $cookies.putObject("lastUsername", userName);
+    };
+
+    this.getLastLoggedInUsername = function () {
+      return $cookies.get("lastUsername");
+    };
+
+    this.clearLastLoggedInUsername = function () {
+      $cookies.remove("lastUsername");
+    };
   });
