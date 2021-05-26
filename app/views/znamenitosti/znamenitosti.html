@@ -1,0 +1,19 @@
+<table>
+  <thead>
+    <tr>
+      <th>Naziv znamenitosti</th>
+      <th>Odobrio</th>
+      <th>Predložio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in lista">
+      <td>{{ item.naziv }}</td>
+      <td>{{ item.odobrio_ime + item.odobrio_prezime }}</td>
+      <td>
+        {{ (item.predlozio_ime + item.predlozio_prezime) || "Anonimni korisnik"
+        }}
+      </td>
+    </tr>
+  </tbody>
+</table>

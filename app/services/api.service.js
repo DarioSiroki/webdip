@@ -33,4 +33,8 @@ angular.module("apiModule", []).service("apiService", function ($http) {
   this.getStats = async function () {
     return $http.get(baseURL + "/znamenitost/statistika");
   };
+
+  this.getListOfLandmarksAndOwners = async function () {
+    return $http.get(baseURL + "/znamenitost/popis_znamenitosti_i_autora");
+  };
 });

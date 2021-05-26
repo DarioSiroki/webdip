@@ -33,6 +33,7 @@ class Router
         $this->$router->post('/register', 'KorisnikController@register');
         $this->$router->post('/logout', 'KorisnikController@log_out');
         $this->$router->get('/znamenitost/statistika', 'ZnamenitostController@dohvati_statistiku');
+        $this->$router->get('/znamenitost/popis_znamenitosti_i_autora', 'ZnamenitostController@popis_znamenitosti_i_autora');
     }
 
     private function init() 

@@ -9,6 +9,7 @@ const app = angular.module("znamenitosti", [
   "menuModule",
   "configModule",
   "validationModule",
+  "znamenitostiModule",
 ]);
 
 app.config(function ($routeProvider) {
@@ -39,6 +40,15 @@ app.config(function ($routeProvider) {
       allowed: "all",
       templateUrl: "views/registration/registration.html",
       controller: "registrationController",
+    })
+    .when("/znamenitosti", {
+      css: {
+        href: "views/znamenitosti/znamenitosti.css",
+        bustCache: true,
+      },
+      allowed: "all",
+      templateUrl: "views/znamenitosti/znamenitosti.html",
+      controller: "znamenitostiController",
     });
 });
 
