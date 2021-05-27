@@ -26,6 +26,12 @@ angular.module("apiModule", []).service("apiService", function ($http) {
     });
   };
 
+  this.resetPw = async function (user_name) {
+    return $http.post(baseURL + "/reset-password", {
+      user_name,
+    });
+  };
+
   this.logout = async function () {
     return $http.post(baseURL + "/logout");
   };

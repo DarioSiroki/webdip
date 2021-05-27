@@ -60,5 +60,13 @@ angular
         }
         document.body.style.cursor = "default";
       };
+
+      $scope.forgotPw = function () {
+        const korime = prompt("Vaše korisničko ime:");
+        apiService
+          .resetPw(korime)
+          .then(() => alert("uspjeh"))
+          .catch((err) => alert(err.data));
+      };
     }
   );

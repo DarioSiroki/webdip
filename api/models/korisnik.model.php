@@ -34,6 +34,17 @@ class KorisnikModel
         return $result;
     }
 
+    public function get_by_user_name($korisnicko_ime)
+    {
+        $query = "SELECT email FROM korisnik WHERE korisnicko_ime=?";
+        $statement = $this->$connection->prepare($query);
+        $statement->bind_param("s", $korisnicko_ime);
+        $statement->execute();
+        $result = $statement->get_result();
+        $statement->close();
+        return $result;
+    }
+
     /**
      * @return int - new users ID
      */
@@ -82,6 +93,15 @@ class KorisnikModel
         $query = "UPDATE korisnik SET broj_neuspjesnih_prijava=broj_neuspjesnih_prijava+1 WHERE korisnik_id=?";
         $statement = $this->$connection->prepare($query);
         $statement->bind_param("i", $korisnik_id);
+        $statement->execute();
+        $statement->close();
+    }
+
+    public function update_password($lozinka, $lozinka_sha256, $user_name)
+    {
+        $query = "UPDATE korisnik SET lozinka=?, lozinka_sha256=? WHERE korisnicko_ime=?";
+        $statement = $this->$connection->prepare($query);
+        $statement->bind_param("sss", $lozinka, $lozinka_sha256, $user_name);
         $statement->execute();
         $statement->close();
     }

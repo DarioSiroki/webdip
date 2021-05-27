@@ -32,6 +32,7 @@ class Router
         $this->$router->post('/login', 'KorisnikController@login');
         $this->$router->post('/register', 'KorisnikController@register');
         $this->$router->post('/logout', 'KorisnikController@log_out');
+        $this->$router->post('/reset-password', 'KorisnikController@reset_password');
 
         $this->$router->get('/znamenitost/statistika', 'ZnamenitostController@dohvati_statistiku');
         $this->$router->get('/znamenitost/popis_znamenitosti_i_autora', 'ZnamenitostController@popis_znamenitosti_i_autora');

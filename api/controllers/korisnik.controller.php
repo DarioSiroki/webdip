@@ -47,6 +47,8 @@ class KorisnikController
             return;
         }
 
+        unset($korisnik["lozinka_sha256"]);
+
         if ($korisnik["broj_neuspjesnih_prijava"] >= 3)
         {
             header("HTTP/1.1 401 Unauthorized");
@@ -158,6 +160,32 @@ class KorisnikController
         $aktivacijski_kod = new AktivacijskiKodModel();
         $activationCode = $aktivacijski_kod->insert_code($newUserId);
         mail($email, "Znamenitosti Hrvatske - Aktivacijski kod", "Vaš aktivacijski kod: " . $activationCode);
+    }
+
+    public function reset_password()
+    {
+        $form_data = json_decode(file_get_contents("php://input"));
+        
+        $korisnik_model = new KorisnikModel();
+        
+        $korime = $form_data->user_name;
+
+        $result = $korisnik_model->get_by_user_name($korime);
+
+        if ($result->num_rows == 0)
+        {
+            header("HTTP/1.0 404 Not Found");
+            echo "Ne postoji ovo korisnicko ime";
+            return;
+        }
+
+        $korisnik = $result->fetch_assoc();
+
+        $nova_lozinka = rand(100000, 999999);
+        $nova_lozinka_sha256 = hash("sha256", $nova_lozinka);
+        $korisnik_model->update_password($nova_lozinka, $nova_lozinka_sha256, $korime);
+
+        mail($korisnik->email, "Znamenitosti Hrvatske - Reset lozinke", "Vaša nova lozinka: " . $nova_lozinka);
     }
 
     /**
