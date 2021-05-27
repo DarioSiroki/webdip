@@ -18,17 +18,16 @@ class KorisnikModel
     }
 
     /**
-     * Returns all the records matching provided email and password.
+     * Returns all the records matching provided email
      * Function returns non-sensitive data only about users.
      */
-    public function login($korisnicko_ime, $password_sha256) 
+    public function login($korisnicko_ime) 
     {
-        $query = "SELECT korisnik_id, ime, prezime, korisnicko_ime, naziv as uloga FROM korisnik "  .
+        $query = "SELECT korisnik_id, ime, prezime, korisnicko_ime, naziv as uloga, broj_neuspjesnih_prijava, lozinka_sha256 FROM korisnik "  .
         "LEFT JOIN uloga on uloga.uloga_id=korisnik.uloga_id " .
-        "WHERE korisnicko_ime=? " .
-        "AND lozinka_sha256=? ";
+        "WHERE korisnicko_ime=?";
         $statement = $this->$connection->prepare($query);
-        $statement->bind_param("ss", $korisnicko_ime, $password_sha256);
+        $statement->bind_param("s", $korisnicko_ime);
         $statement->execute();
         $result = $statement->get_result();
         $statement->close();
@@ -69,11 +68,20 @@ class KorisnikModel
         return $result;
     }
 
-    public function activate($korisnikId)
+    public function activate($korisnik_id)
     {
         $query = "UPDATE korisnik SET uloga_id=2 WHERE korisnik_id=?";
         $statement = $this->$connection->prepare($query);
-        $statement->bind_param("i", $korisnikId);
+        $statement->bind_param("i", $korisnik_id);
+        $statement->execute();
+        $statement->close();
+    }
+
+    public function inkrementiraj_neuspjesne_prijave($korisnik_id)
+    {
+        $query = "UPDATE korisnik SET broj_neuspjesnih_prijava=broj_neuspjesnih_prijava+1 WHERE korisnik_id=?";
+        $statement = $this->$connection->prepare($query);
+        $statement->bind_param("i", $korisnik_id);
         $statement->execute();
         $statement->close();
     }

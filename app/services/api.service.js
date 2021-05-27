@@ -1,9 +1,9 @@
 angular.module("apiModule", []).service("apiService", function ($http) {
   const baseURL = "/api";
 
-  this.login = async function (email, password, token, activationCode) {
+  this.login = async function (username, password, token, activationCode) {
     return $http.post(baseURL + "/login", {
-      email,
+      username,
       password,
       token,
       activationCode,

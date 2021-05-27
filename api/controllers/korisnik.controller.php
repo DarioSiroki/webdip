@@ -20,22 +20,39 @@ class KorisnikController
             return;
         }
 
-        $korisnik = new KorisnikModel();
+        $korisnik_model = new KorisnikModel();
 
         $user_name = $form_data->username;
         $password_sha256 = hash("sha256", $form_data->password);
         $activationCode = $form_data->activationCode;
 
-        $result = $korisnik->login($user_name, $password_sha256);
-        
+        $result = $korisnik_model->login($user_name);
+
         if ($result->num_rows == 0) 
         {
             header("HTTP/1.1 401 Unauthorized");
-            echo "Ne postoji korisnik sa ovim podacima.";
             return;
         }
 
         $korisnik = $result->fetch_assoc();
+
+        if ($korisnik["lozinka_sha256"] != $password_sha256)
+        {
+            header("HTTP/1.1 401 Unauthorized");
+            echo "Kriva lozinka.";
+            if ($korisnik["uloga"] != "administrator") 
+            {
+                $korisnik_model->inkrementiraj_neuspjesne_prijave($korisnik["korisnik_id"]);
+            }
+            return;
+        }
+
+        if ($korisnik["broj_neuspjesnih_prijava"] >= 3)
+        {
+            header("HTTP/1.1 401 Unauthorized");
+            echo "Pogrešno ste se prijavili previše puta. Kontaktirajte administratora da vam odblokira račun.";
+            return;
+        }
 
         $wasActivated = false;
         if(strlen($activationCode) > 0) {
