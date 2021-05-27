@@ -10,20 +10,24 @@
       ng-model="naziv"
     />
   </div>
+  <small style="color: red" ng-if="nazivErr"> Naziv je obavezan </small>
+
   <div class="form-item">
     <label for="naziv">Opis:</label>
     <textarea name="opis" id="opis" ng-model="opis"></textarea>
   </div>
+  <small style="color: red" ng-if="opisErr"> Opis je obavezan </small>
 
   <div class="form-item">
     <label for="grad">Grad:</label>
 
     <select name="grad" id="grad" style="width: 40vw">
-      <option ng-repeat="grad in gradovi" value="{{grad.naziv}}">
+      <option ng-repeat="grad in gradovi" value="{{grad.grad_id}}">
         {{grad.naziv}}
       </option>
     </select>
   </div>
+  <small style="color: red" ng-if="gradErr"> Grad je obavezan </small>
 
   <div class="form-item">
     <label for="ime">Ime:</label>

@@ -41,4 +41,22 @@ angular.module("apiModule", []).service("apiService", function ($http) {
   this.getCities = async function () {
     return $http.get(baseURL + "/grad");
   };
+
+  this.dodajPrijedlog = async function (
+    naziv,
+    opis,
+    gradId,
+    ime,
+    prezime,
+    nadimak
+  ) {
+    return $http.post(baseURL + "/neregistrirani_prijedlog", {
+      naziv,
+      opis,
+      gradId,
+      ime,
+      prezime,
+      nadimak,
+    });
+  };
 });
