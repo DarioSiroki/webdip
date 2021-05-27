@@ -23,8 +23,9 @@ class KorisnikController
         $korisnik_model = new KorisnikModel();
 
         $user_name = $form_data->username;
-        $password_sha256 = hash("sha256", $form_data->password);
+        $password = $form_data->password;
         $activationCode = $form_data->activationCode;
+        $password_sha256 = hash("sha256", $user_name . $password);
 
         $result = $korisnik_model->login($user_name);
 
@@ -144,7 +145,7 @@ class KorisnikController
             echo "Korisničko ime mora sadržavati barem 3 znaka.";  
             return;
         }
-        $password_sha256 = hash("sha256", $password);
+        $password_sha256 = hash("sha256", $user_name . $password);
 
         $korisnik = new KorisnikModel();
         $user_exists = $korisnik->user_exists($user_name);
@@ -181,8 +182,10 @@ class KorisnikController
 
         $korisnik = $result->fetch_assoc();
 
-        $nova_lozinka = rand(100000, 999999);
-        $nova_lozinka_sha256 = hash("sha256", $nova_lozinka);
+        $nova_lozinka = (string)rand(100000, 999999);
+        $nova_lozinka_sha256 = hash("sha256", $korime . $nova_lozinka);
+        echo "<pre>";
+        echo $korime . $nova_lozinka;
         $korisnik_model->update_password($nova_lozinka, $nova_lozinka_sha256, $korime);
 
         mail($korisnik->email, "Znamenitosti Hrvatske - Reset lozinke", "Vaša nova lozinka: " . $nova_lozinka);
