@@ -12,6 +12,7 @@ const app = angular.module("znamenitosti", [
   "znamenitostiModule",
   "prijedlogModule",
   "galerijaModule",
+  "zahtjevModule",
 ]);
 
 app.config(function ($routeProvider) {
@@ -69,6 +70,15 @@ app.config(function ($routeProvider) {
       allowed: "registered",
       templateUrl: "views/galerija/galerija.html",
       controller: "galerijaController",
+    })
+    .when("/zahtjev", {
+      css: {
+        href: "views/zahtjev/zahtjev.css",
+        bustCache: true,
+      },
+      allowed: "registered",
+      templateUrl: "views/zahtjev/zahtjev.html",
+      controller: "zahtjevController",
     });
 });
 

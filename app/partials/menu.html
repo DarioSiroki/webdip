@@ -33,6 +33,12 @@
       >Znamenitosti</a
     >
     <a href="#!prijedlog" ng-class="isActive('/prijedlog')">Prijedlog</a>
+    <a
+      href="#!zahtjev"
+      ng-class="isActive('/zahtjevi')"
+      ng-if="isRegisteredUser() || isAdmin()"
+      >Zahtjev</a
+    >
     <a href="#!prijava" ng-class="isActive('/prijava')" ng-if="!isLoggedIn()"
       >Prijava</a
     >
