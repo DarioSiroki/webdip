@@ -36,6 +36,12 @@
           multiple="false"
         />
         <br />
+        <label>Tip:</label>
+        <select id="fileType{{znamenitost.znamenitost_id}}">
+          <option value="slika">slika</option>
+          <option value="video">video</option>
+          <option value="audio">audio</option>
+        </select>
         <button ng-click="upload(znamenitost.znamenitost_id)">Pošalji</button>
       </div>
     </div>

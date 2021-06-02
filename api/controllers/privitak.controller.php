@@ -10,7 +10,7 @@ class PrivitakController
     {
         session_start();
         $znamenitost_id = $_POST['znamenitost_id'];
-        $tip = $_FILES["file"]["type"];
+        $tip = $_POST['fileType'];
         $korisnik_id = $_SESSION["korisnik"]["korisnik_id"];
         $naziv = $_FILES["file"]["name"];
 

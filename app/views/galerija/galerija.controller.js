@@ -44,9 +44,13 @@ angular
     $scope.upload = async function (znamenitostId) {
       const file = document.getElementById("file" + znamenitostId).files[0];
       if (file === undefined) return alert("Niste dodali datoteku");
+      const fileType = document.getElementById(
+        "fileType" + znamenitostId
+      ).value;
       const formData = new FormData();
       formData.append("znamenitost_id", znamenitostId);
       formData.append("file", file);
+      formData.append("fileType", fileType);
       await apiService.dodajMaterijal(formData);
       alert("Uspjeh");
     };
