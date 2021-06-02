@@ -76,4 +76,17 @@ angular.module("apiModule", []).service("apiService", function ($http) {
       headers: { "Content-Type": undefined, "Process-Data": false },
     });
   };
+
+  this.dohvatiPrijedloge = async function (formData) {
+    return $http.get(baseURL + "/neregistrirani_prijedlog");
+  };
+
+  this.dodajZahtjev = async function (naziv, opis, gradId, godina) {
+    return $http.post(baseURL + "/registrirani_zahtjev", {
+      naziv,
+      opis,
+      gradId,
+      godina,
+    });
+  };
 });

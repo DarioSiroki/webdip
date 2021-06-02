@@ -3,7 +3,7 @@
 namespace Znamenitosti;
 include_once("config/database.php");
 
-class NeregistriraniPrijedlogModel
+class RegistriraniZahtjevModel
 {
     private $connection;
 
@@ -18,13 +18,13 @@ class NeregistriraniPrijedlogModel
     }
 
     public function dodaj(
-            $grad_id, $naziv, $opis, $ime, $prezime, $nadimak
+        $gradId, $naziv, $opis, $godina, $korisnik_id, $status = "na čekanju"
         ) 
         {
-        $query = "INSERT INTO neregistrirani_zahtjev (grad_id, naziv, opis, ime, prezime, nadimak) " .
+        $query = "INSERT INTO registrirani_zahtjev (grad_id, naziv, opis, godina, korisnik_id, status) " .
                 "VALUES (?, ?, ?, ?, ?, ?)";
         $statement = $this->$connection->prepare($query);
-        $statement->bind_param("isssss", $grad_id, $naziv, $opis, $ime, $prezime, $nadimak);
+        $statement->bind_param("issiis", $gradId, $naziv, $opis, $godina, $korisnik_id, $status);
         $statement->execute();
         $newId = $statement->insert_id;
         $statement->close();
@@ -33,7 +33,7 @@ class NeregistriraniPrijedlogModel
 
     public function get()
     {
-        $query = "SELECT * from neregistrirani_zahtjev";
+        $query = "SELECT * from registrirani_zahtjev";
         $result = $this->$connection->query($query);
         $zahtjevi = array();
         if ($result->num_rows > 0) {

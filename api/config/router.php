@@ -43,7 +43,16 @@ class Router
 
         $this->$router->get('/grad', 'GradController@dohvati_gradove');
 
+        $this->$router->before('POST', '/registrirani_zahtjev', function() {
+            $this->is_registered_user();
+        });
+        $this->$router->post('/registrirani_zahtjev', 'RegistriraniZahtjevController@dodaj');
+
         $this->$router->post('/neregistrirani_prijedlog', 'NeregistriraniPrijedlogController@dodaj');
+        $this->$router->before('GET', '/neregistrirani_prijedlog', function() {
+            $this->is_registered_user();
+        });
+        $this->$router->get('/neregistrirani_prijedlog', 'NeregistriraniPrijedlogController@get');
 
         $this->$router->before('POST', '/privitak', function() {
             $this->is_registered_user();

@@ -22,6 +22,14 @@ class NeregistriraniPrijedlogController
         
         echo $newId;
     }
+
+    public function get()
+    {
+        $nereg_prijedlog_model = new NeregistriraniPrijedlogModel();
+        $data = $nereg_prijedlog_model->get();
+
+        echo json_encode($data);
+    }
 }
 
 ?>
