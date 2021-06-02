@@ -36,7 +36,6 @@ angular
       if (!gradId) {
         $scope.gradErr = true;
       }
-      console.log($scope.godina);
       if (!$scope.godina) {
         $scope.godinaErr = true;
       }
