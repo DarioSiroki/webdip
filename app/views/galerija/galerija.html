@@ -25,6 +25,19 @@
       <p>{{znamenitost.opis}}</p>
       <p>Znamenitost je nastala: {{znamenitost.godina}}. godine</p>
       <small>Kreirano: {{znamenitost.kreirano}}</small>
+      <br />
+      <br />
+      <div>
+        <b>Dodaj materijal</b>
+        <br />
+        <input
+          type="file"
+          id="file{{znamenitost.znamenitost_id}}"
+          multiple="false"
+        />
+        <br />
+        <button ng-click="upload(znamenitost.znamenitost_id)">Pošalji</button>
+      </div>
     </div>
     <br />
   </div>

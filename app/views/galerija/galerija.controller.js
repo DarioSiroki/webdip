@@ -40,4 +40,14 @@ angular
         });
       $scope.paginator.setFilter(fn);
     };
+
+    $scope.upload = async function (znamenitostId) {
+      const file = document.getElementById("file" + znamenitostId).files[0];
+      if (file === undefined) return alert("Niste dodali datoteku");
+      const formData = new FormData();
+      formData.append("znamenitost_id", znamenitostId);
+      formData.append("file", file);
+      await apiService.dodajMaterijal(formData);
+      alert("Uspjeh");
+    };
   });

@@ -69,4 +69,11 @@ angular.module("apiModule", []).service("apiService", function ($http) {
   this.getLandmarks = async function () {
     return $http.get(baseURL + "/znamenitost/popis");
   };
+
+  this.dodajMaterijal = async function (formData) {
+    return $http.post(baseURL + "/privitak", formData, {
+      transformRequest: angular.identity,
+      headers: { "Content-Type": undefined, "Process-Data": false },
+    });
+  };
 });

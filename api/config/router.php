@@ -44,6 +44,12 @@ class Router
         $this->$router->get('/grad', 'GradController@dohvati_gradove');
 
         $this->$router->post('/neregistrirani_prijedlog', 'NeregistriraniPrijedlogController@dodaj');
+
+        $this->$router->before('POST', '/privitak', function() {
+            $this->is_registered_user();
+        });
+        $this->$router->post('/privitak', 'PrivitakController@dodaj');
+
     }
 
     public function is_registered_user()
