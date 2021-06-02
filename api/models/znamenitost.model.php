@@ -41,7 +41,8 @@ class ZnamenitostModel
         return $statistika;
     }
 
-    public function popis_znamenitosti_i_autora() {
+    public function popis_znamenitosti_i_autora() 
+    {
         $query = 
         "
         SELECT z.naziv, k.ime as predlozio_ime, k.prezime as predlozio_prezime, k2.ime as odobrio_ime, k2.prezime as odobrio_prezime
@@ -50,6 +51,22 @@ class ZnamenitostModel
         ON z.predlozio_korisnik_id=k.korisnik_id
         LEFT JOIN korisnik k2
         ON z.odobrio_korisnik_id=k2.korisnik_id
+        ";
+        $result = $this->$connection->query($query);
+        $popis = array();
+        if ($result->num_rows > 0) {
+            while($red = $result->fetch_assoc()) {
+                $popis[] = $red;
+            }   
+        }
+        return $popis;
+    }
+
+    public function get_all()
+    {
+        $query = 
+        "
+        SELECT * FROM znamenitost
         ";
         $result = $this->$connection->query($query);
         $popis = array();

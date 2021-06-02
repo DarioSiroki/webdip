@@ -1,3 +1,4 @@
+<h1 style="text-align: center">Lista znamenitosti i njihovih autora</h1>
 <table>
   <thead>
     <tr>
@@ -7,7 +8,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in lista">
+    <tr ng-repeat="item in lista track by $index">
       <td>{{ item.naziv }}</td>
       <td>{{ item.odobrio_ime + item.odobrio_prezime }}</td>
       <td>

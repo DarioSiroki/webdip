@@ -1,0 +1,31 @@
+<div>
+  <h1 style="text-align: center">Galerija znamenitosti</h1>
+  <div class="centriraj">
+    <label>Znamenitosti po stranici: &nbsp;</label>
+    <input type="number" ng-model="amount" ng-keyup="filtersChanged()" />
+    <label>&nbsp;Godina od:&nbsp;</label>
+    <input type="number" ng-model="od" ng-keyup="filtersChanged()" />
+    <label>&nbsp;do:&nbsp;</label>
+    <input type="number" ng-model="do" ng-keyup="filtersChanged()" />
+  </div>
+  <br />
+  <div class="centriraj">
+    <button ng-click="paginator.firstPage()">Prva</button>
+    <button ng-click="paginator.prevPage()">Prethodna</button>
+    <button ng-click="paginator.nextPage()">Sljedeća</button>
+    <button ng-click="paginator.lastPage()">Zadnja</button>
+  </div>
+  <br />
+  <div
+    ng-repeat="znamenitost in paginator.list track by $index"
+    ng-if="loaded = true"
+  >
+    <div class="znamenitost">
+      <h3>{{znamenitost.naziv}} ({{ znamenitost.grad }})</h3>
+      <p>{{znamenitost.opis}}</p>
+      <p>Znamenitost je nastala: {{znamenitost.godina}}. godine</p>
+      <small>Kreirano: {{znamenitost.kreirano}}</small>
+    </div>
+    <br />
+  </div>
+</div>

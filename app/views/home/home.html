@@ -12,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="stat in stats">
+    <tr ng-repeat="stat in stats track by $index">
       <td>{{ stat.naziv }}</td>
       <td>{{ stat.broj_znamenitosti }}</td>
     </tr>

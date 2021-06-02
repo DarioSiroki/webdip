@@ -1,0 +1,11 @@
+.znamenitost {
+  border-color: rgba(96, 185, 121, 0.5);
+  border-style: solid;
+  border-radius: 50px;
+  padding: 30px;
+}
+
+.centriraj {
+  display: flex;
+  justify-content: center;
+}

@@ -6,7 +6,6 @@ angular.module("menuModule", []).directive("znamenitostiMenu", function () {
     controller: function (
       $scope,
       $location,
-      $cookies,
       $route,
       configService,
       apiService
@@ -16,6 +15,8 @@ angular.module("menuModule", []).directive("znamenitostiMenu", function () {
       }
 
       $scope.isLoggedIn = configService.isLoggedIn;
+      $scope.isRegisteredUser = configService.isRegisteredUser;
+      $scope.isAdmin = configService.isAdmin;
 
       $scope.isActive = function (route) {
         return route == $location.$$path ? "active" : null;

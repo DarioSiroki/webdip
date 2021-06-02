@@ -21,6 +21,15 @@ class ZnamenitostController
         
         echo json_encode($popis);
     }
+
+    public function popis_paginated()
+    {
+        $form_data = json_decode(file_get_contents("php://input"));
+        $znamenitost_model = new ZnamenitostModel();
+        $popis = $znamenitost_model->get_all();
+
+        echo json_encode($popis);
+    }
 }
 
 ?>

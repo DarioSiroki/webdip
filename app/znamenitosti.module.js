@@ -11,6 +11,7 @@ const app = angular.module("znamenitosti", [
   "validationModule",
   "znamenitostiModule",
   "prijedlogModule",
+  "galerijaModule",
 ]);
 
 app.config(function ($routeProvider) {
@@ -59,6 +60,15 @@ app.config(function ($routeProvider) {
       allowed: "all",
       templateUrl: "views/prijedlog/prijedlog.html",
       controller: "prijedlogController",
+    })
+    .when("/galerija", {
+      css: {
+        href: "views/galerija/galerija.css",
+        bustCache: true,
+      },
+      allowed: "registered",
+      templateUrl: "views/galerija/galerija.html",
+      controller: "galerijaController",
     });
 });
 

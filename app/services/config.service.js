@@ -1,12 +1,11 @@
 angular
   .module("configModule", [])
   .service("configService", function ($cookies) {
+    const vm = this;
     // Constants
-
     this.CAPTCHA_KEY = "6LfMpNcaAAAAAA75RmarKUWkGoZCXuCf13s1cylS";
 
     // Authenthication
-
     this.routeChangeStart = function (event, next, current) {
       const access = next.$$route.allowed;
 
@@ -14,7 +13,12 @@ angular
       if (access === undefined) return;
 
       // Allow if it's a public view
-      if (typeof access === "string" && access === "all") return;
+      if (access === "all") return;
+
+      if (access === "registered" && (vm.isRegisteredUser() || vm.isAdmin()))
+        return;
+
+      event.preventDefault();
     };
 
     this.isLoggedIn = function () {
@@ -22,11 +26,11 @@ angular
     };
 
     this.isAdmin = function () {
-      return $cookies.get("userData").role === "administrator";
+      return $cookies.getObject("userData")?.uloga === "administrator";
     };
 
     this.isRegisteredUser = function () {
-      return $cookies.get("userData").role === "registrirani_korisnik";
+      return $cookies.getObject("userData")?.uloga === "registrirani_korisnik";
     };
 
     this.setUserData = function (userData) {

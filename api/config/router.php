@@ -36,10 +36,25 @@ class Router
 
         $this->$router->get('/znamenitost/statistika', 'ZnamenitostController@dohvati_statistiku');
         $this->$router->get('/znamenitost/popis_znamenitosti_i_autora', 'ZnamenitostController@popis_znamenitosti_i_autora');
+        $this->$router->before('GET', '/znamenitost/popis', function() {
+            $this->is_registered_user();
+        });
+        $this->$router->get('/znamenitost/popis', 'ZnamenitostController@popis_paginated');
 
         $this->$router->get('/grad', 'GradController@dohvati_gradove');
 
         $this->$router->post('/neregistrirani_prijedlog', 'NeregistriraniPrijedlogController@dodaj');
+    }
+
+    public function is_registered_user()
+    {
+        session_start();
+        $lvl = $_SESSION["korisnik"]["uloga"];
+        if ($lvl != "registrirani_korisnik")
+        {
+            header("HTTP/1.1 401 Unauthorized");
+            exit;
+        }
     }
 
     private function init() 

@@ -65,4 +65,8 @@ angular.module("apiModule", []).service("apiService", function ($http) {
       nadimak,
     });
   };
+
+  this.getLandmarks = async function () {
+    return $http.get(baseURL + "/znamenitost/popis");
+  };
 });

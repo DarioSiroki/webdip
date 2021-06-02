@@ -23,6 +23,12 @@
 <header class="topnav" ng-init="display = 'none';">
   <a href="#!" ng-class="isActive('/')">Početna</a>
   <span style="float: right">
+    <a
+      href="#!galerija"
+      ng-class="isActive('/galerija')"
+      ng-if="isRegisteredUser() || isAdmin()"
+      >Galerija</a
+    >
     <a href="#!znamenitosti" ng-class="isActive('/znamenitosti')"
       >Znamenitosti</a
     >
