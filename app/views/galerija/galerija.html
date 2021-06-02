@@ -22,6 +22,28 @@
   >
     <div class="znamenitost">
       <h3>{{znamenitost.naziv}} ({{ znamenitost.grad }})</h3>
+      <div ng-repeat="materijal in materijali">
+        <div ng-if="materijal.znamenitost_id == znamenitost.znamenitost_id">
+          <img
+            src="/api/materijali/{{materijal.naziv}}"
+            alt="{{materijal.naziv}}"
+            width="200px"
+            ng-if="materijal.tip == 'slika'"
+          />
+          <audio controls ng-if="materijal.tip == 'audio'">
+            <source src="/api/materijali/{{materijal.naziv}}" />
+          </audio>
+          <video
+            width="320"
+            height="240"
+            controls
+            ng-if="materijal.tip == 'video'"
+          >
+            <source src="/api/materijali/{{materijal.naziv}}" />
+          </video>
+        </div>
+      </div>
+
       <p>{{znamenitost.opis}}</p>
       <p>Znamenitost je nastala: {{znamenitost.godina}}. godine</p>
       <small>Kreirano: {{znamenitost.kreirano}}</small>

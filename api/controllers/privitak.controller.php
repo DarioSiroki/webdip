@@ -19,6 +19,14 @@ class PrivitakController
 
         $x = move_uploaded_file($_FILES["file"]["tmp_name"], "./materijali/" . $naziv);
     }
+
+    public function get() 
+    {
+        $privitak_model = new PrivitakModel();
+        $lista = $privitak_model->get();
+
+        echo json_encode($lista);
+    }
 }
 
 ?>

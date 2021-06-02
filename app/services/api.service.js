@@ -77,7 +77,11 @@ angular.module("apiModule", []).service("apiService", function ($http) {
     });
   };
 
-  this.dohvatiPrijedloge = async function (formData) {
+  this.dohvatiMaterijale = async function () {
+    return $http.get(baseURL + "/privitak");
+  };
+
+  this.dohvatiPrijedloge = async function () {
     return $http.get(baseURL + "/neregistrirani_prijedlog");
   };
 

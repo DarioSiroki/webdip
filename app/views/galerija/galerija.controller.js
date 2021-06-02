@@ -3,6 +3,7 @@ angular
   .controller("galerijaController", function ($scope, apiService) {
     $scope.paginator = new Paginator([]);
     $scope.page = 0;
+    $scope.materijali = [];
 
     function bindajGradoveZnamenitostima(gradovi, znamenitosti) {
       for (const z of znamenitosti) {
@@ -20,6 +21,11 @@ angular
         $scope.loaded = true;
         $scope.$apply();
       });
+    });
+
+    apiService.dohvatiMaterijale().then((res) => {
+      $scope.materijali = res.data;
+      $scope.$apply();
     });
 
     $scope.filtersChanged = function () {

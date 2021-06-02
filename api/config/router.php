@@ -54,10 +54,11 @@ class Router
         });
         $this->$router->get('/neregistrirani_prijedlog', 'NeregistriraniPrijedlogController@get');
 
-        $this->$router->before('POST', '/privitak', function() {
+        $this->$router->before('POST', '/privitak/*', function() {
             $this->is_registered_user();
         });
         $this->$router->post('/privitak', 'PrivitakController@dodaj');
+        $this->$router->get('/privitak', 'PrivitakController@get');
 
     }
 

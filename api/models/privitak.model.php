@@ -27,4 +27,17 @@ class PrivitakModel
         $statement->close();
         return $newId;
     }
+
+    public function get()
+    {
+        $query = "SELECT * from privitak";
+        $result = $this->$connection->query($query);
+        $lista = array();
+        if ($result->num_rows > 0) {
+            while($red = $result->fetch_assoc()) {
+                $lista[] = $red;
+            }   
+        }
+        return $lista;
+    }
 }
