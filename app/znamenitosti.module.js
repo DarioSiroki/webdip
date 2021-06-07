@@ -13,6 +13,7 @@ const app = angular.module("znamenitosti", [
   "prijedlogModule",
   "galerijaModule",
   "zahtjevModule",
+  "gradoviModule",
 ]);
 
 app.config(function ($routeProvider) {
@@ -79,6 +80,15 @@ app.config(function ($routeProvider) {
       allowed: "registered",
       templateUrl: "views/zahtjev/zahtjev.html",
       controller: "zahtjevController",
+    })
+    .when("/gradovi", {
+      css: {
+        href: "views/gradovi/gradovi.css",
+        bustCache: true,
+      },
+      allowed: "admin",
+      templateUrl: "views/gradovi/gradovi.html",
+      controller: "gradoviController",
     });
 });
 

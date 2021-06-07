@@ -18,6 +18,8 @@ angular
       if (access === "registered" && (vm.isRegisteredUser() || vm.isAdmin()))
         return;
 
+      if (access === "admin" && vm.isAdmin()) return;
+
       event.preventDefault();
     };
 
