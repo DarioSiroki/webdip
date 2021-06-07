@@ -23,7 +23,21 @@ class GradController
         $postanski_broj = $form_data->postanski_broj;
         $povrsina = $form_data->povrsina;
         $broj_stanovnika = $form_data->broj_stanovnika;
+        
+        if (!$this->grad_is_ok($naziv)) 
+        {
+            header("HTTP/1.1 400 Bad request");
+            echo "Gradovi imaju pocetno slovo svake rijeci veliko.";  
+            return;
+        }
 
+        if ($this->postanski_je_ok($postanski_broj) != false) 
+        {
+            header("HTTP/1.1 400 Bad request");
+            echo "Unesite poštanski broj bez razmaka.";  
+            return;
+        }
+        
         $grad_model = new GradModel();
         $grad_model->uredi_grad($grad_id, $naziv, $opis, $postanski_broj, $povrsina, $broj_stanovnika);
     }
@@ -37,10 +51,43 @@ class GradController
         $povrsina = $form_data->povrsina;
         $broj_stanovnika = $form_data->broj_stanovnika;
 
+        if (!$this->grad_is_ok($naziv)) 
+        {
+            header("HTTP/1.1 400 Bad request");
+            echo "Gradovi imaju pocetno slovo svake rijeci veliko.";  
+            return;
+        }
+
+        if ($this->postanski_je_ok($postanski_broj) != false) 
+        {
+            header("HTTP/1.1 400 Bad request");
+            echo "Unesite poštanski broj bez razmaka.";  
+            return;
+        }
+
         $grad_model = new GradModel();
         $newId = $grad_model->dodaj_grad($naziv, $opis, $postanski_broj, $povrsina, $broj_stanovnika);
 
         echo $newId;
+    }
+
+    public function grad_is_ok($grad) 
+    {
+        $pcs = explode(" ", $grad);
+        $ok = true;
+        foreach($pcs as $p)
+        {
+            if (strtoupper($p[0]) != $p[0])
+            {
+                $ok = false;
+            }
+        }
+        return $ok;
+    }
+
+    public function postanski_je_ok($postanski)
+    {
+        return strpos($postanski, " ");
     }
 }
 

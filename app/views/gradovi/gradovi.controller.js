@@ -47,7 +47,24 @@ angular
       $scope.broj_stanovnika = grad.broj_stanovnika;
     };
 
+    function gradIsOk() {
+      const pcs = $scope.naziv.split(" ");
+      return pcs.every((pc) => pc[0] == pc[0].toUpperCase());
+    }
+
+    function postanskiIsOk() {
+      return !$scope.postanski_broj.includes(" ");
+    }
+
     $scope.spremi = function () {
+      if (!gradIsOk()) {
+        alert("Gradovi imaju pocetno slovo svake rijeci veliko");
+        return;
+      }
+      if (!postanskiIsOk()) {
+        alert("Unesite poštanski broj bez razmaka");
+        return;
+      }
       if (!$scope.akcijaDodavanja)
         apiService
           .updateGrad(
