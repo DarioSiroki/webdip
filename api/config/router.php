@@ -66,7 +66,7 @@ class Router
     {
         session_start();
         $lvl = $_SESSION["korisnik"]["uloga"];
-        if ($lvl != "registrirani_korisnik")
+        if ($lvl != "registrirani_korisnik" && $lvl != "administrator")
         {
             header("HTTP/1.1 401 Unauthorized");
             exit;
