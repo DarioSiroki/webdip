@@ -56,6 +56,11 @@ class Router
             $this->is_registered_user();
         });
         $this->$router->post('/registrirani_zahtjev', 'RegistriraniZahtjevController@dodaj');
+        $this->$router->before('GET|PATCH', '/registrirani_zahtjev', function() {
+            $this->is_registered_user();
+        });
+        $this->$router->get('/registrirani_zahtjev', 'RegistriraniZahtjevController@get');
+        $this->$router->patch('/registrirani_zahtjev', 'RegistriraniZahtjevController@update');
 
         $this->$router->post('/neregistrirani_prijedlog', 'NeregistriraniPrijedlogController@dodaj');
         $this->$router->before('GET', '/neregistrirani_prijedlog', function() {

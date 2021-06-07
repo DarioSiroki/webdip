@@ -65,12 +65,48 @@
   <tbody>
     <tr ng-repeat="prijedlog in prijedlozi track by $index">
       <td>{{ prijedlog.naziv }}</td>
-      <td style="width: 60vw">{{ prijedlog.opis }}</td>
+      <td style="width: 30vw">{{ prijedlog.opis }}</td>
       <td>
         <a
           href="javascript:void(0)"
           ng-click="predlozak(prijedlog.neregistrirani_zahtjev_id)"
           >Iskoristi</a
+        >
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 ng-if="listaZahtjeva.length > 0">Popis zahtjeva</h1>
+<table ng-if="listaZahtjeva.length > 0">
+  <thead>
+    <tr>
+      <th>Naziv</th>
+      <th>Opis</th>
+      <th>Godina</th>
+      <th>Status</th>
+      <th>-</th>
+      <th>-</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="zahtjev in listaZahtjeva track by $index">
+      <td>{{ zahtjev.naziv }}</td>
+      <td style="width: 30vw">{{ zahtjev.opis }}</td>
+      <td>{{ zahtjev.godina }}</td>
+      <td>{{ zahtjev.status }}</td>
+      <td>
+        <a
+          href="javascript:void(0)"
+          ng-click="promijeniStatus(zahtjev.registrirani_zahtjev_id, 'potvrđeno')"
+          >Odobri</a
+        >
+      </td>
+      <td>
+        <a
+          href="javascript:void(0)"
+          ng-click="promijeniStatus(zahtjev.registrirani_zahtjev_id, 'odbijeno')"
+          >Odbij</a
         >
       </td>
     </tr>

@@ -94,6 +94,17 @@ angular.module("apiModule", []).service("apiService", function ($http) {
     });
   };
 
+  this.dohvatiZahtjeve = async function () {
+    return $http.get(baseURL + "/registrirani_zahtjev");
+  };
+
+  this.changeStatus = async function (registrirani_zahtjev_id, status) {
+    return $http.patch(baseURL + "/registrirani_zahtjev", {
+      registrirani_zahtjev_id,
+      status,
+    });
+  };
+
   this.getUsers = async function () {
     return $http.get(baseURL + "/users");
   };

@@ -30,6 +30,23 @@ class RegistriraniZahtjevController
 
         echo json_encode($data);
     }
+
+    public function update()
+    {
+        session_start();
+        $korisnik_id = $_SESSION["korisnik"]["korisnik_id"];
+        $form_data = json_decode(file_get_contents("php://input"));
+        $registrirani_zahtjev_id = $form_data->registrirani_zahtjev_id;
+        $status = $form_data->status;
+        $reg_zahtjev_model = new RegistriraniZahtjevModel();
+
+        if ($status == "potvrđeno")
+        {
+            $reg_zahtjev_model->dodaj_znamenitost($registrirani_zahtjev_id, $korisnik_id);
+        }
+
+        $reg_zahtjev_model->update($registrirani_zahtjev_id, $status);
+    }
 }
 
 ?>
