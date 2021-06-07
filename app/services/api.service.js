@@ -1,5 +1,5 @@
 angular.module("apiModule", []).service("apiService", function ($http) {
-  const baseURL = "/api";
+  const baseURL = window.location.pathname.replace("app", "api");
 
   this.login = async function (username, password, token, activationCode) {
     return $http.post(baseURL + "/login", {
