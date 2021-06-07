@@ -215,6 +215,14 @@ class KorisnikController
         
         return json_decode($response);
     }
+
+    public function dohvati_korisnike() 
+    {
+        $korisnik_model = new KorisnikModel();
+        $korisnici = $korisnik_model->dohvati_korisnike();
+
+        echo json_encode($korisnici);
+    }
 }
 
 ?>

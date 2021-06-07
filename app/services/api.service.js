@@ -93,4 +93,62 @@ angular.module("apiModule", []).service("apiService", function ($http) {
       godina,
     });
   };
+
+  this.getUsers = async function () {
+    return $http.get(baseURL + "/users");
+  };
+
+  this.updateGrad = async function (
+    grad_id,
+    naziv,
+    opis,
+    postanski_broj,
+    povrsina,
+    broj_stanovnika
+  ) {
+    return $http.patch(baseURL + "/grad", {
+      grad_id,
+      naziv,
+      opis,
+      postanski_broj,
+      povrsina,
+      broj_stanovnika,
+    });
+  };
+
+  this.addGrad = async function (
+    naziv,
+    opis,
+    postanski_broj,
+    povrsina,
+    broj_stanovnika
+  ) {
+    return $http.post(baseURL + "/grad", {
+      naziv,
+      opis,
+      postanski_broj,
+      povrsina,
+      broj_stanovnika,
+    });
+  };
+
+  this.getMods = async function () {
+    return $http.get(baseURL + "/moderator");
+  };
+
+  this.addMod = async function (grad_id, korisnik_id) {
+    return $http.post(baseURL + "/moderator", {
+      grad_id,
+      korisnik_id,
+    });
+  };
+
+  this.deleteMod = async function (grad_id, korisnik_id) {
+    return $http.delete(baseURL + "/moderator", {
+      data: {
+        grad_id,
+        korisnik_id,
+      },
+    });
+  };
 });

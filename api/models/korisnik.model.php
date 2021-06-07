@@ -105,6 +105,18 @@ class KorisnikModel
         $statement->execute();
         $statement->close();
     }
+
+    public function dohvati_korisnike() {
+        $query = "SELECT korisnik_id, ime, prezime, korisnicko_ime, email FROM korisnik";
+        $result = $this->$connection->query($query);
+        $korisnici = array();
+        if ($result->num_rows > 0) {
+            while($red = $result->fetch_assoc()) {
+                $korisnici[] = $red;
+            }   
+        }
+        return $korisnici;
+    }
 }
 
 ?>

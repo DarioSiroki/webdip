@@ -32,7 +32,11 @@ class Router
         $this->$router->post('/login', 'KorisnikController@login');
         $this->$router->post('/register', 'KorisnikController@register');
         $this->$router->post('/logout', 'KorisnikController@log_out');
-        $this->$router->post('/reset-password', 'KorisnikController@reset_password');
+        $this->$router->post('/reset-password', 'KorisnikController@dohvati_korisnike');
+        $this->$router->before('GET', '/users', function() {
+            $this->is_admin();
+        });
+        $this->$router->get('/users', 'KorisnikController@dohvati_korisnike');
 
         $this->$router->get('/znamenitost/statistika', 'ZnamenitostController@dohvati_statistiku');
         $this->$router->get('/znamenitost/popis_znamenitosti_i_autora', 'ZnamenitostController@popis_znamenitosti_i_autora');
@@ -42,6 +46,11 @@ class Router
         $this->$router->get('/znamenitost/popis', 'ZnamenitostController@popis_paginated');
 
         $this->$router->get('/grad', 'GradController@dohvati_gradove');
+        $this->$router->before('PATCH|POST', '/grad', function() {
+            $this->is_admin();
+        });
+        $this->$router->patch('/grad', 'GradController@uredi_grad');
+        $this->$router->post('/grad', 'GradController@dodaj_grad');
 
         $this->$router->before('POST', '/registrirani_zahtjev', function() {
             $this->is_registered_user();
@@ -60,6 +69,24 @@ class Router
         $this->$router->post('/privitak', 'PrivitakController@dodaj');
         $this->$router->get('/privitak', 'PrivitakController@get');
 
+        $this->$router->before('GET|POST|DELETE', '/moderator', function() {
+            $this->is_admin();
+        });
+        $this->$router->get('/moderator', 'ModeratorController@dohvati_moderatore');
+        $this->$router->post('/moderator', 'ModeratorController@dodaj_moderatora');
+        $this->$router->delete('/moderator', 'ModeratorController@obrisi_moderatora');
+
+    }
+
+    public function is_admin()
+    {
+        session_start();
+        $lvl = $_SESSION["korisnik"]["uloga"];
+        if ($lvl != "administrator")
+        {
+            header("HTTP/1.1 401 Unauthorized");
+            exit;
+        }
     }
 
     public function is_registered_user()
