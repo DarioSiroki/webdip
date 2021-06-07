@@ -59,7 +59,7 @@ class RegistriraniZahtjevModel
                 SELECT korisnik_id, ?, grad_id, naziv, opis  FROM registrirani_zahtjev
                 WHERE registrirani_zahtjev_id=?;";
         $statement = $this->$connection->prepare($query);
-        $statement->bind_param("ii", $registrirani_zahtjev_id, $odobrio_korisnik_id);
+        $statement->bind_param("ii", $odobrio_korisnik_id, $registrirani_zahtjev_id);
         $statement->execute();
         $newId = $statement->insert_id;
         $statement->close();
