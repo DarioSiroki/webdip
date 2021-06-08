@@ -28,7 +28,6 @@ class Router
             echo 'Znamenitosti API';
         });
 
-
         $this->router->post('/login', 'KorisnikController@login');
         $this->router->post('/register', 'KorisnikController@register');
         $this->router->post('/logout', 'KorisnikController@log_out');
@@ -38,6 +37,7 @@ class Router
         });
         $this->router->get('/users', 'KorisnikController@dohvati_korisnike');
 
+        $this->router->get("/rss", "ZnamenitostController@popis_rss");
         $this->router->get('/znamenitost/statistika', 'ZnamenitostController@dohvati_statistiku');
         $this->router->get('/znamenitost/popis_znamenitosti_i_autora', 'ZnamenitostController@popis_znamenitosti_i_autora');
         $this->router->before('GET', '/znamenitost/popis', function() {

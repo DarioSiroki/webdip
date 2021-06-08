@@ -9,12 +9,16 @@
     <tr>
       <th>Grad</th>
       <th>Broj znamenitosti</th>
+      <th>RSS</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="stat in stats track by $index">
       <td>{{ stat.naziv }}</td>
       <td>{{ stat.broj_znamenitosti }}</td>
+      <td>
+        <a href="javascript:void(0)" ng-click="openRSS(stat.grad_id)">RSS</a>
+      </td>
     </tr>
   </tbody>
 </table>

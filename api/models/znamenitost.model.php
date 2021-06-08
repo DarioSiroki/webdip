@@ -21,7 +21,7 @@ class ZnamenitostModel
     {
         $query = 
         "
-        SELECT g.naziv as naziv, broj_znamenitosti
+        SELECT g.naziv as naziv, broj_znamenitosti, g.grad_id
         FROM grad g
         LEFT JOIN (select grad_id, count(*) as broj_znamenitosti
                 FROM znamenitost 
@@ -69,6 +69,29 @@ class ZnamenitostModel
         SELECT * FROM znamenitost
         ";
         $result = $this->connection->query($query);
+        $popis = array();
+        if ($result->num_rows > 0) {
+            while($red = $result->fetch_assoc()) {
+                $popis[] = $red;
+            }   
+        }
+        return $popis;
+    }
+
+    public function get_ten($grad)
+    {
+        $query = 
+        "
+        SELECT z.naziv, z.opis FROM znamenitost z
+        LEFT JOIN grad g
+        ON g.grad_id=z.grad_id
+        WHERE g.grad_id=?
+        LIMIT 10
+        ";
+        $statement = $this->connection->prepare($query);
+        $statement->bind_param("i", $grad);
+        $statement->execute();
+        $result = $statement->get_result();
         $popis = array();
         if ($result->num_rows > 0) {
             while($red = $result->fetch_assoc()) {

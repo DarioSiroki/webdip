@@ -6,4 +6,11 @@ angular
       $scope.stats = response.data;
       $scope.$apply();
     });
+
+    $scope.openRSS = function (gradId) {
+      window.location = window.location.pathname.replace(
+        "app/",
+        "api/rss?grad=" + gradId
+      );
+    };
   });
