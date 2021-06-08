@@ -35,7 +35,10 @@ angular
             $scope.activationCode
           );
           // Save user data to cookies
-          configService.setUserData(result.data);
+          configService.setUserData({
+            korisnik_id: result.data.korisnik_id,
+            uloga: result.data.uloga,
+          });
           // Save or clear remember me in cookies
           if ($scope.zapamtiMe) {
             configService.setLastLoggedInUsername($scope.korime);

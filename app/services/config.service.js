@@ -36,11 +36,11 @@ angular
     };
 
     this.setUserData = function (userData) {
-      window.localStorage.setItem("userData", JSON.stringify(userData));
+      $cookies.putObject("userData", userData);
     };
 
     this.getUserData = function () {
-      return JSON.parse(window.localStorage.getItem("userData"));
+      return $cookies.getObject("userData");
     };
 
     this.clearUserData = function () {
