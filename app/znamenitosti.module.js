@@ -14,6 +14,7 @@ const app = angular.module("znamenitosti", [
   "galerijaModule",
   "zahtjevModule",
   "gradoviModule",
+  "postavkeModule",
 ]);
 
 app.config(function ($routeProvider) {
@@ -89,6 +90,15 @@ app.config(function ($routeProvider) {
       allowed: "admin",
       templateUrl: "views/gradovi/gradovi.html",
       controller: "gradoviController",
+    })
+    .when("/postavke", {
+      css: {
+        href: "views/postavke/postavke.css",
+        bustCache: true,
+      },
+      allowed: "admin",
+      templateUrl: "views/postavke/postavke.html",
+      controller: "postavkeController",
     });
 });
 

@@ -1,0 +1,27 @@
+.container {
+  margin-left: 20px;
+  margin-right: 20px;
+  text-align: center;
+}
+
+table {
+  align-self: center;
+  width: 80%;
+  margin: auto;
+  border-radius: 20px;
+  overflow-wrap: anywhere;
+  background-color: rgba(96, 185, 121, 0.5);
+  border: 2px solid #fff;
+  color: #000;
+  text-align: center;
+  padding: 5px;
+}
+
+table td {
+  border-top: 1px solid gray;
+  padding: 5px;
+}
+
+table thead {
+  border-bottom: 1px solid gray;
+}
