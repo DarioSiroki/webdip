@@ -17,6 +17,8 @@ class BackupController
         $cmd = "mysqldump -u $username --password=$password $db_name privitak znamenitost > $path";
 
         $x = exec($cmd, $output);
+
+        echo $filename;
     }
 
     public function dohvati() 

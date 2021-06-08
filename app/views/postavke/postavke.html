@@ -1,0 +1,19 @@
+<div class="container">
+  <h3>Lista starih backupova</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Datoteka</th>
+        <th>-</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="backup in backups track by $index">
+        <td>{{ backup }}</td>
+        <td><a href="javascript:void(0)" ng-click="vrati(backup)">Vrati</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <button ng-click="napraviBackup()">Napravi novi backup</button>
+</div>

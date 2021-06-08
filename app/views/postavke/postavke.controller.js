@@ -5,8 +5,10 @@ angular
     $scope.napraviBackup = function () {
       apiService
         .napraviBackup()
-        .then(() => {
+        .then((res) => {
           alert("uspjeh");
+          $scope.backups.push(res.data);
+          $scope.$apply();
         })
         .catch(() => alert("greska"));
     };
