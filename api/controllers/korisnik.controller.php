@@ -212,6 +212,7 @@ class KorisnikController
         curl_setopt($ch, CURLOPT_URL, $url);
         $response = curl_exec($ch);
         curl_close($ch);
+        // $response = json_decode(file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secret."&response=".$secret_key."&remoteip=".$_SERVER['REMOTE_ADDR']), true);
         
         return json_decode($response);
     }
