@@ -69,6 +69,10 @@ class KorisnikController
             return;
         }
 
+        if ($wasActivated) {
+            $korisnik["uloga"] = "registrirani_korisnik";
+        }
+
         session_start();
         $_SESSION["korisnik"] = $korisnik;
         $returnValue = json_encode($korisnik);
