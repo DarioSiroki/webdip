@@ -19,6 +19,12 @@ class Database
         {
             die("Greška pri spajanju na bazu: " . $connection->connect_error);
         }
+        $connection->set_charset("utf8");
+        if ($connection->connect_errno) {
+            echo "Neuspješno postavljanje znakova za bazu: " . $connection->connect_errno . ", " .
+            $connection->connect_error;
+            $this->greska = $connection->connect_error;
+        }
         return $connection;
     }
 }
