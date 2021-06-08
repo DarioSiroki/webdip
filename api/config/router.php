@@ -74,8 +74,11 @@ class Router
         $this->router->post('/privitak', 'PrivitakController@dodaj');
         $this->router->get('/privitak', 'PrivitakController@get');
 
-        $this->router->before('GET|POST|DELETE', '/moderator', function() {
+        $this->router->before('POST|DELETE', '/moderator', function() {
             $this->is_admin();
+        });
+        $this->router->before('GET', '/moderator', function() {
+            $this->is_registered_user();
         });
         $this->router->get('/moderator', 'ModeratorController@dohvati_moderatore');
         $this->router->post('/moderator', 'ModeratorController@dodaj_moderatora');
