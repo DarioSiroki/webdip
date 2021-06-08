@@ -54,7 +54,7 @@ class ZnamenitostController
 <item>
 <title>".$z['naziv']."</title>
 <description>".$z['opis']."</description>
-<link>". "a"."</link>
+<link>". $curr ."</link>
 </item>
 ";
         }
