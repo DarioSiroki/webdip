@@ -9,12 +9,12 @@ class ZnamenitostModel
 
     public function __construct() 
     {
-		$this->$connection = Database::start_connection();
+		$this->connection = Database::start_connection();
 	}
 
     public function __destruct() 
     {
-        $this->$connection->close();
+        $this->connection->close();
     }
 
     public function dohvati_statistiku() 
@@ -28,7 +28,7 @@ class ZnamenitostModel
                GROUP BY grad_id) z
           ON g.grad_id = z.grad_id
         ";
-        $result = $this->$connection->query($query);
+        $result = $this->connection->query($query);
         $statistika = array();
         if ($result->num_rows > 0) {
             while($red = $result->fetch_assoc()) {
@@ -52,7 +52,7 @@ class ZnamenitostModel
         LEFT JOIN korisnik k2
         ON z.odobrio_korisnik_id=k2.korisnik_id
         ";
-        $result = $this->$connection->query($query);
+        $result = $this->connection->query($query);
         $popis = array();
         if ($result->num_rows > 0) {
             while($red = $result->fetch_assoc()) {
@@ -68,7 +68,7 @@ class ZnamenitostModel
         "
         SELECT * FROM znamenitost
         ";
-        $result = $this->$connection->query($query);
+        $result = $this->connection->query($query);
         $popis = array();
         if ($result->num_rows > 0) {
             while($red = $result->fetch_assoc()) {

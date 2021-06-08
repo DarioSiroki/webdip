@@ -9,18 +9,18 @@ class PrivitakModel
 
     public function __construct() 
     {
-		$this->$connection = Database::start_connection();
+		$this->connection = Database::start_connection();
 	}
 
     public function __destruct() 
     {
-        $this->$connection->close();
+        $this->connection->close();
     }
 
     public function dodaj($korisnik_id, $znamenitost_id, $tip, $naziv) 
     {
         $query = "INSERT INTO privitak (korisnik_id, znamenitost_id, tip, naziv) VALUES (?, ?, ?, ?)";
-        $statement = $this->$connection->prepare($query);
+        $statement = $this->connection->prepare($query);
         $statement->bind_param("iiss", $korisnik_id, $znamenitost_id, $tip, $naziv);
         $statement->execute();
         $newId = $statement->insert_id;
@@ -31,7 +31,7 @@ class PrivitakModel
     public function get()
     {
         $query = "SELECT * from privitak";
-        $result = $this->$connection->query($query);
+        $result = $this->connection->query($query);
         $lista = array();
         if ($result->num_rows > 0) {
             while($red = $result->fetch_assoc()) {

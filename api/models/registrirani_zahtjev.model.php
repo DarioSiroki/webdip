@@ -9,12 +9,12 @@ class RegistriraniZahtjevModel
 
     public function __construct() 
     {
-		$this->$connection = Database::start_connection();
+		$this->connection = Database::start_connection();
 	}
 
     public function __destruct() 
     {
-        $this->$connection->close();
+        $this->connection->close();
     }
 
     public function dodaj(
@@ -23,7 +23,7 @@ class RegistriraniZahtjevModel
         {
         $query = "INSERT INTO registrirani_zahtjev (grad_id, naziv, opis, godina, korisnik_id, status) " .
                 "VALUES (?, ?, ?, ?, ?, ?)";
-        $statement = $this->$connection->prepare($query);
+        $statement = $this->connection->prepare($query);
         $statement->bind_param("issiis", $gradId, $naziv, $opis, $godina, $korisnik_id, $status);
         $statement->execute();
         $newId = $statement->insert_id;
@@ -34,7 +34,7 @@ class RegistriraniZahtjevModel
     public function get()
     {
         $query = "SELECT * from registrirani_zahtjev";
-        $result = $this->$connection->query($query);
+        $result = $this->connection->query($query);
         $zahtjevi = array();
         if ($result->num_rows > 0) {
             while($red = $result->fetch_assoc()) {
@@ -47,7 +47,7 @@ class RegistriraniZahtjevModel
     public function update($registrirani_zahtjev_id, $status)
     {
         $query = "UPDATE registrirani_zahtjev SET status=? WHERE registrirani_zahtjev_id=?";
-        $statement = $this->$connection->prepare($query);
+        $statement = $this->connection->prepare($query);
         $statement->bind_param("si", $status, $registrirani_zahtjev_id);
         $statement->execute();
         $statement->close();
@@ -58,7 +58,7 @@ class RegistriraniZahtjevModel
         $query = "INSERT INTO znamenitost (predlozio_korisnik_id, odobrio_korisnik_id, grad_id, naziv, opis)
                 SELECT korisnik_id, ?, grad_id, naziv, opis  FROM registrirani_zahtjev
                 WHERE registrirani_zahtjev_id=?;";
-        $statement = $this->$connection->prepare($query);
+        $statement = $this->connection->prepare($query);
         $statement->bind_param("ii", $odobrio_korisnik_id, $registrirani_zahtjev_id);
         $statement->execute();
         $newId = $statement->insert_id;

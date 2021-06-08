@@ -14,72 +14,72 @@ class Router
 
     public function start() 
     {
-        $this->$router->run();
+        $this->router->run();
     }
 
     private function initRoutes() 
     {
-        $this->$router->set404(function () {
+        $this->router->set404(function () {
             echo 'Ova stranica ne postoji.';
         });
 
 
-        $this->$router->get('/', function () {
+        $this->router->get('/', function () {
             echo 'Znamenitosti API';
         });
 
 
-        $this->$router->post('/login', 'KorisnikController@login');
-        $this->$router->post('/register', 'KorisnikController@register');
-        $this->$router->post('/logout', 'KorisnikController@log_out');
-        $this->$router->post('/reset-password', 'KorisnikController@dohvati_korisnike');
-        $this->$router->before('GET', '/users', function() {
+        $this->router->post('/login', 'KorisnikController@login');
+        $this->router->post('/register', 'KorisnikController@register');
+        $this->router->post('/logout', 'KorisnikController@log_out');
+        $this->router->post('/reset-password', 'KorisnikController@dohvati_korisnike');
+        $this->router->before('GET', '/users', function() {
             $this->is_admin();
         });
-        $this->$router->get('/users', 'KorisnikController@dohvati_korisnike');
+        $this->router->get('/users', 'KorisnikController@dohvati_korisnike');
 
-        $this->$router->get('/znamenitost/statistika', 'ZnamenitostController@dohvati_statistiku');
-        $this->$router->get('/znamenitost/popis_znamenitosti_i_autora', 'ZnamenitostController@popis_znamenitosti_i_autora');
-        $this->$router->before('GET', '/znamenitost/popis', function() {
+        $this->router->get('/znamenitost/statistika', 'ZnamenitostController@dohvati_statistiku');
+        $this->router->get('/znamenitost/popis_znamenitosti_i_autora', 'ZnamenitostController@popis_znamenitosti_i_autora');
+        $this->router->before('GET', '/znamenitost/popis', function() {
             $this->is_registered_user();
         });
-        $this->$router->get('/znamenitost/popis', 'ZnamenitostController@popis_paginated');
+        $this->router->get('/znamenitost/popis', 'ZnamenitostController@popis_paginated');
 
-        $this->$router->get('/grad', 'GradController@dohvati_gradove');
-        $this->$router->before('PATCH|POST', '/grad', function() {
+        $this->router->get('/grad', 'GradController@dohvati_gradove');
+        $this->router->before('PATCH|POST', '/grad', function() {
             $this->is_admin();
         });
-        $this->$router->patch('/grad', 'GradController@uredi_grad');
-        $this->$router->post('/grad', 'GradController@dodaj_grad');
+        $this->router->patch('/grad', 'GradController@uredi_grad');
+        $this->router->post('/grad', 'GradController@dodaj_grad');
 
-        $this->$router->before('POST', '/registrirani_zahtjev', function() {
+        $this->router->before('POST', '/registrirani_zahtjev', function() {
             $this->is_registered_user();
         });
-        $this->$router->post('/registrirani_zahtjev', 'RegistriraniZahtjevController@dodaj');
-        $this->$router->before('GET|PATCH', '/registrirani_zahtjev', function() {
+        $this->router->post('/registrirani_zahtjev', 'RegistriraniZahtjevController@dodaj');
+        $this->router->before('GET|PATCH', '/registrirani_zahtjev', function() {
             $this->is_registered_user();
         });
-        $this->$router->get('/registrirani_zahtjev', 'RegistriraniZahtjevController@get');
-        $this->$router->patch('/registrirani_zahtjev', 'RegistriraniZahtjevController@update');
+        $this->router->get('/registrirani_zahtjev', 'RegistriraniZahtjevController@get');
+        $this->router->patch('/registrirani_zahtjev', 'RegistriraniZahtjevController@update');
 
-        $this->$router->post('/neregistrirani_prijedlog', 'NeregistriraniPrijedlogController@dodaj');
-        $this->$router->before('GET', '/neregistrirani_prijedlog', function() {
+        $this->router->post('/neregistrirani_prijedlog', 'NeregistriraniPrijedlogController@dodaj');
+        $this->router->before('GET', '/neregistrirani_prijedlog', function() {
             $this->is_registered_user();
         });
-        $this->$router->get('/neregistrirani_prijedlog', 'NeregistriraniPrijedlogController@get');
+        $this->router->get('/neregistrirani_prijedlog', 'NeregistriraniPrijedlogController@get');
 
-        $this->$router->before('POST', '/privitak/*', function() {
+        $this->router->before('POST', '/privitak/*', function() {
             $this->is_registered_user();
         });
-        $this->$router->post('/privitak', 'PrivitakController@dodaj');
-        $this->$router->get('/privitak', 'PrivitakController@get');
+        $this->router->post('/privitak', 'PrivitakController@dodaj');
+        $this->router->get('/privitak', 'PrivitakController@get');
 
-        $this->$router->before('GET|POST|DELETE', '/moderator', function() {
+        $this->router->before('GET|POST|DELETE', '/moderator', function() {
             $this->is_admin();
         });
-        $this->$router->get('/moderator', 'ModeratorController@dohvati_moderatore');
-        $this->$router->post('/moderator', 'ModeratorController@dodaj_moderatora');
-        $this->$router->delete('/moderator', 'ModeratorController@obrisi_moderatora');
+        $this->router->get('/moderator', 'ModeratorController@dohvati_moderatore');
+        $this->router->post('/moderator', 'ModeratorController@dodaj_moderatora');
+        $this->router->delete('/moderator', 'ModeratorController@obrisi_moderatora');
 
     }
 
@@ -107,8 +107,8 @@ class Router
 
     private function init() 
     {
-        $this->$router = new \Bramus\Router\Router();
-        $this->$router->setNamespace('\Znamenitosti');
+        $this->router = new \Bramus\Router\Router();
+        $this->router->setNamespace('\Znamenitosti');
     }
 
     private function requireControllers()
