@@ -13,6 +13,24 @@
     display: inline;
   }
 
+  @media only screen and (max-width: 860px) {
+    header {
+      display: flex;
+      flex-direction: column;
+      align-content: flex-end;
+      align-items: center;
+    }
+    span {
+      width: 100%;
+    }
+    header a {
+      text-align: center;
+      width: 100%;
+      display: block;
+      border-bottom: 1px solid black;
+    }
+  }
+
   .active {
     background-color: #60b979;
     padding: 20px;
@@ -23,6 +41,9 @@
 <header class="topnav" ng-init="display = 'none';">
   <a href="#!" ng-class="isActive('/')">Početna</a>
   <span style="float: right">
+    <a href="#!postavke" ng-class="isActive('/postavke')" ng-if="isAdmin()"
+      >Postavke</a
+    >
     <a href="#!gradovi" ng-class="isActive('/gradovi')" ng-if="isAdmin()"
       >Gradovi</a
     >
