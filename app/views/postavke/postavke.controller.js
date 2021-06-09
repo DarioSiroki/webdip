@@ -18,7 +18,14 @@ angular
       $scope.$apply();
     });
 
-    $scope.vrati = function (naziv) {
-      console.log(naziv);
+    $scope.vratiBackup = function (naziv) {
+      apiService
+        .vratiBackup(naziv)
+        .then(() => {
+          alert("uspjeh");
+        })
+        .catch(() => {
+          alert("greška");
+        });
     };
   });

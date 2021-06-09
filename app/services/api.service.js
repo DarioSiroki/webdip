@@ -170,4 +170,8 @@ angular.module("apiModule", []).service("apiService", function ($http) {
   this.dohvatiBackupove = async function () {
     return $http.get(baseURL + "/backup");
   };
+
+  this.vratiBackup = async function (naziv) {
+    return $http.post(baseURL + "/backup/vrati", { naziv });
+  };
 });

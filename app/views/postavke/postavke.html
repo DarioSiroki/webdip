@@ -10,7 +10,9 @@
     <tbody>
       <tr ng-repeat="backup in backups track by $index">
         <td>{{ backup }}</td>
-        <td><a href="javascript:void(0)" ng-click="vrati(backup)">Vrati</a></td>
+        <td>
+          <a href="javascript:void(0)" ng-click="vratiBackup(backup)">Vrati</a>
+        </td>
       </tr>
     </tbody>
   </table>
