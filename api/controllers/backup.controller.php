@@ -53,7 +53,6 @@ class BackupController
         $password = $settings["database"]["password"];
         $db_name = $settings["database"]["db_name"];
         $cmd = "mysql -u $username --password=$password $db_name < $path";
-        echo $cmd;
 
         exec($cmd, $output);
 
