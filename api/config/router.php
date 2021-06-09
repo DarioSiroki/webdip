@@ -84,10 +84,14 @@ class Router
         $this->router->post('/moderator', 'ModeratorController@dodaj_moderatora');
         $this->router->delete('/moderator', 'ModeratorController@obrisi_moderatora');
         $this->router->before('GET|POST', '/backup', function() {
-            $this->is_registered_user();
+            $this->is_admin();
+        });
+        $this->router->before('GET|POST', '/backup/vrati', function() {
+            $this->is_admin();
         });
         $this->router->get('/backup', 'BackupController@dohvati');
         $this->router->post('/backup', 'BackupController@dodaj');
+        $this->router->post('/backup/vrati', 'BackupController@vrati');
 
     }
 
