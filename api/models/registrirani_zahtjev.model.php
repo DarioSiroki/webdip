@@ -55,8 +55,8 @@ class RegistriraniZahtjevModel
 
     public function dodaj_znamenitost($registrirani_zahtjev_id, $odobrio_korisnik_id)
     {
-        $query = "INSERT INTO znamenitost (predlozio_korisnik_id, odobrio_korisnik_id, grad_id, naziv, opis)
-                SELECT korisnik_id, ?, grad_id, naziv, opis  FROM registrirani_zahtjev
+        $query = "INSERT INTO znamenitost (predlozio_korisnik_id, odobrio_korisnik_id, grad_id, naziv, opis, godina)
+                SELECT korisnik_id, ?, grad_id, naziv, opis, godina  FROM registrirani_zahtjev
                 WHERE registrirani_zahtjev_id=?;";
         $statement = $this->connection->prepare($query);
         $statement->bind_param("ii", $odobrio_korisnik_id, $registrirani_zahtjev_id);
