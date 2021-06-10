@@ -24,6 +24,7 @@
     <script src="views/zahtjev/zahtjev.controller.js"></script>
     <script src="views/gradovi/gradovi.controller.js"></script>
     <script src="views/postavke/postavke.controller.js"></script>
+    <script src="index.controller.js"></script>
     <!-- Services -->
     <script src="services/api.service.js"></script>
     <script src="services/config.service.js"></script>
@@ -38,7 +39,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
-  <body ng-app="znamenitosti">
+  <body ng-app="znamenitosti" ng-controller="indexController" ng-class="[
+  { 'dyslexia': accessibility.openDyslexia }, 
+  { 'contrast': accessibility.contrast },
+  { 'increased-font-size': accessibility.fontSize },
+  { 'increased-line-height': accessibility.lineHeight },
+  { 'increased-letter-spacing': accessibility.letterSpacing },
+  { 'increased-word-spacing': accessibility.wordSpacing },
+  ]">
     <znamenitosti-menu></znamenitosti-menu>
     <ng-view></ng-view>
     <ng-include src="'partials/footer.html'" class="footer-fix"></ng-include>

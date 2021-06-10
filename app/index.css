@@ -15,3 +15,33 @@ body {
 * {
   box-sizing: border-box;
 }
+
+@font-face {
+  font-family: OpenDyslexic;
+  src: url(assets/fonts/OpenDyslexic-Regular.otf);
+}
+
+.dyslexia * {
+  font-family: OpenDyslexic;
+}
+
+.contrast * {
+  color: white !important;
+  background-color: black !important;
+}
+
+.increased-font-size * {
+  font-size: 1.5rem;
+}
+
+.increased-line-height * {
+  line-height: 30px;
+}
+
+.increased-letter-spacing * {
+  letter-spacing: 3px;
+}
+
+.increased-word-spacing * {
+  word-spacing: 30px;
+}

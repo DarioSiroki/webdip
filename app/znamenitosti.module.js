@@ -15,6 +15,7 @@ const app = angular.module("znamenitosti", [
   "zahtjevModule",
   "gradoviModule",
   "postavkeModule",
+  "indexModule",
 ]);
 
 app.config(function ($routeProvider) {

@@ -1,6 +1,15 @@
 angular
   .module("configModule", [])
   .service("configService", function ($cookies) {
+    this.accessibility = {
+      contrast: false,
+      openDyslexia: false,
+      fontSize: null,
+      lineHeight: null,
+      wordSpacing: null,
+      letterSpacing: null,
+    };
+
     const vm = this;
     // Constants
     this.CAPTCHA_KEY = "6LfMpNcaAAAAAA75RmarKUWkGoZCXuCf13s1cylS";
