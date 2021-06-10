@@ -37,3 +37,7 @@ table td {
 table thead {
   border-bottom: 1px solid gray;
 }
+
+tr.neobradjeno td {
+  border: 3px solid yellow;
+}
