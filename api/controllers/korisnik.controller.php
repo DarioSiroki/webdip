@@ -37,6 +37,13 @@ class KorisnikController
 
         $korisnik = $result->fetch_assoc();
 
+        if ($korisnik["broj_neuspjesnih_prijava"] >= 3)
+        {
+            header("HTTP/1.1 401 Unauthorized");
+            echo "Pogrešno ste se prijavili previše puta. Kontaktirajte administratora da vam odblokira račun.";
+            return;
+        }
+
         if ($korisnik["lozinka_sha256"] != $password_sha256)
         {
             header("HTTP/1.1 401 Unauthorized");
@@ -49,13 +56,6 @@ class KorisnikController
         }
 
         unset($korisnik["lozinka_sha256"]);
-
-        if ($korisnik["broj_neuspjesnih_prijava"] >= 3)
-        {
-            header("HTTP/1.1 401 Unauthorized");
-            echo "Pogrešno ste se prijavili previše puta. Kontaktirajte administratora da vam odblokira račun.";
-            return;
-        }
 
         $wasActivated = false;
         if(strlen($activationCode) > 0) {
