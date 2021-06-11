@@ -1,6 +1,24 @@
 angular
   .module("galerijaModule", [])
   .controller("galerijaController", function ($scope, apiService) {
+    const pageTourConfig = [
+      {
+        targetId: "filteri",
+        description: "Ovdje možete filtrirati rezultate",
+      },
+      {
+        targetId: "opcenito",
+        description: `Na ovoj stranici možete vidjeti popis svih znamenitosti i materijala vezanih uz njih koji se nalaze u bazi podataka. `,
+      },
+      {
+        targetId: "upload",
+        description:
+          "Ovdje možete dodati neki materijal koji je vezan uz znamenitost. Sliku, video ili audio zapis.",
+      },
+    ];
+
+    $scope.pageTour = new PageTour(pageTourConfig);
+
     $scope.paginator = new Paginator([]);
     $scope.page = 0;
     $scope.materijali = [];

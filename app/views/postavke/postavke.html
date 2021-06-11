@@ -1,10 +1,11 @@
 <div class="container">
   <h3>Lista starih backupova</h3>
+  <p ng-click="pageTour.start()" class="link-alike">Pomoć</p>
   <table>
     <thead>
       <tr>
         <th>Datoteka</th>
-        <th>-</th>
+        <th id="vrati-backup">-</th>
       </tr>
     </thead>
     <tbody>
@@ -17,5 +18,7 @@
     </tbody>
   </table>
   <br />
-  <button ng-click="napraviBackup()">Napravi novi backup</button>
+  <button ng-click="napraviBackup()" id="napravi-backup">
+    Napravi novi backup
+  </button>
 </div>

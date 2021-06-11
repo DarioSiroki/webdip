@@ -3,6 +3,21 @@ angular
   .controller(
     "zahtjevController",
     function ($scope, apiService, configService) {
+      const pageTourConfig = [
+        {
+          targetId: "novi-zahtjev",
+          description: `Registrirani korisnici mogu pregledavati/kreirati zahtjeve za dodavanje nove znamenitosti. Zahtjev se sastoji od
+          odabira grada i unosa naziva, opisa i godine.`,
+        },
+        {
+          targetId: "popis-prijedloga",
+          description: `Registrirani korisnik vidi prijedloge za nove znamenitosti od neregistriranog korisnika i ima mogućnost kreirati
+          novi zahtjev temeljem istog`,
+        },
+      ];
+
+      $scope.pageTour = new PageTour(pageTourConfig);
+
       $scope.gradovi = [];
       $scope.prijedlozi = [];
       $scope.listaZahtjeva = [];
@@ -68,6 +83,14 @@ angular
           $scope.listaZahtjeva = data.filter((zahtjev) =>
             gradoviModeriranjaId.includes(zahtjev.grad_id)
           );
+          if ($scope.listaZahtjeva.length > 0) {
+            console.log("yo");
+            $scope.pageTour.config.push({
+              targetId: "popis-zahtjeva",
+              description: `Moderator vidi popis zahtjeva te potvrđuje/odbija zahtjeve korisnika za znamenitost. Posebno su
+            označeni zahtjevi za dodavanje znamenitosti koji nisu obrađeni.`,
+            });
+          }
           $scope.$apply();
         });
       });

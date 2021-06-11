@@ -45,3 +45,17 @@ body {
 .increased-word-spacing * {
   word-spacing: 30px;
 }
+
+.tour-box {
+  position: absolute;
+  background-color: gray;
+  padding: 20px;
+  color: white;
+  border-radius: 20px;
+}
+
+.link-alike {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}

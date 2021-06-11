@@ -38,31 +38,31 @@
 
 <footer ng-controller="indexController">
   <div id="accessibility-modal">
-    <span ng-click="accessibility.openDyslexia = !accessibility.openDyslexia"
+    <span ng-click="toggleAccessibilityAttr('openDyslexia')"
       >OpenDyslexia font
       <span ng-if="accessibility.openDyslexia">&check;</span></span
     >
-    <span ng-click="accessibility.contrast = !accessibility.contrast"
+    <span ng-click="toggleAccessibilityAttr('contrast')"
       >Crno-bijeli prikaz<span ng-if="accessibility.contrast"
         >&check;</span
       ></span
     >
-    <span ng-click="accessibility.fontSize = !accessibility.fontSize"
+    <span ng-click="toggleAccessibilityAttr('fontSize')"
       >Povećaj veličinu fonta<span ng-if="accessibility.fontSize"
         >&check;</span
       ></span
     >
-    <span ng-click="accessibility.wordSpacing = !accessibility.wordSpacing"
+    <span ng-click="toggleAccessibilityAttr('wordSpacing')"
       >Povećaj razmak između riječi<span ng-if="accessibility.wordSpacing"
         >&check;</span
       ></span
     >
-    <span ng-click="accessibility.letterSpacing = !accessibility.letterSpacing"
+    <span ng-click="toggleAccessibilityAttr('letterSpacing')"
       >Povećaj razmak između slova<span ng-if="accessibility.letterSpacing"
         >&check;</span
       ></span
     >
-    <span ng-click="accessibility.lineHeight = !accessibility.lineHeight"
+    <span ng-click="toggleAccessibilityAttr('lineHeight')"
       >Povećaj razmak između linija<span ng-if="accessibility.lineHeight"
         >&check;</span
       ></span

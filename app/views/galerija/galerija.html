@@ -1,6 +1,7 @@
 <div>
-  <h1 style="text-align: center">Galerija znamenitosti</h1>
-  <div class="centriraj">
+  <h1 style="text-align: center" id="opcenito">Galerija znamenitosti</h1>
+  <p ng-click="pageTour.start()" class="link-alike">Pomoć</p>
+  <div class="centriraj" id="filteri">
     <label>Znamenitosti po stranici: &nbsp;</label>
     <input type="number" ng-model="amount" ng-keyup="filtersChanged()" />
     <label>&nbsp;Godina od:&nbsp;</label>
@@ -50,7 +51,7 @@
       <br />
       <br />
       <div>
-        <b>Dodaj materijal</b>
+        <b id="upload">Dodaj materijal</b>
         <br />
         <input
           type="file"
