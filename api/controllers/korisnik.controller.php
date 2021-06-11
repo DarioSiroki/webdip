@@ -188,11 +188,10 @@ class KorisnikController
 
         $nova_lozinka = (string)rand(100000, 999999);
         $nova_lozinka_sha256 = hash("sha256", $korime . $nova_lozinka);
-        echo "<pre>";
-        echo $korime . $nova_lozinka;
+
         $korisnik_model->update_password($nova_lozinka, $nova_lozinka_sha256, $korime);
 
-        mail($korisnik->email, "Znamenitosti Hrvatske - Reset lozinke", "Vaša nova lozinka: " . $nova_lozinka);
+        mail($korisnik["email"], "Znamenitosti Hrvatske - Reset lozinke", "Vaša nova lozinka: " . $nova_lozinka);
     }
 
     /**

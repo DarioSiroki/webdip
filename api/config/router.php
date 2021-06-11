@@ -31,7 +31,7 @@ class Router
         $this->router->post('/login', 'KorisnikController@login');
         $this->router->post('/register', 'KorisnikController@register');
         $this->router->post('/logout', 'KorisnikController@log_out');
-        $this->router->post('/reset-password', 'KorisnikController@dohvati_korisnike');
+        $this->router->post('/reset-password', 'KorisnikController@reset_password');
         $this->router->before('GET', '/users', function() {
             $this->is_admin();
         });
