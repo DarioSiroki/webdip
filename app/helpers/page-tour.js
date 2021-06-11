@@ -15,7 +15,6 @@ class PageTour {
   }
 
   next() {
-    // Makni prethodnu poruku ako postoji
     if (this.prevBox != null) {
       this.prevBox.remove();
     }
