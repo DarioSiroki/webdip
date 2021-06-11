@@ -26,13 +26,13 @@
       <div ng-repeat="materijal in materijali">
         <div ng-if="materijal.znamenitost_id == znamenitost.znamenitost_id">
           <img
-            src="/api/materijali/{{materijal.naziv}}"
+            src="{{baseURL}}/materijali/{{materijal.naziv}}"
             alt="{{materijal.naziv}}"
             width="200px"
             ng-if="materijal.tip == 'slika'"
           />
           <audio controls ng-if="materijal.tip == 'audio'">
-            <source src="/api/materijali/{{materijal.naziv}}" />
+            <source src="{{baseURL}}/materijali/{{materijal.naziv}}" />
           </audio>
           <video
             width="320"
@@ -40,7 +40,7 @@
             controls
             ng-if="materijal.tip == 'video'"
           >
-            <source src="/api/materijali/{{materijal.naziv}}" />
+            <source src="{{baseURL}}/materijali/{{materijal.naziv}}" />
           </video>
         </div>
       </div>

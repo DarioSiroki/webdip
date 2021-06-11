@@ -1,6 +1,8 @@
 angular
   .module("galerijaModule", [])
   .controller("galerijaController", function ($scope, apiService) {
+    $scope.baseURL = window.location.pathname.replace("app", "api");
+
     const pageTourConfig = [
       {
         targetId: "filteri",

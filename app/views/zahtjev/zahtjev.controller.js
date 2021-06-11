@@ -80,11 +80,14 @@ angular
           .map((g) => g.grad_id);
 
         apiService.dohvatiZahtjeve().then(({ data }) => {
-          $scope.listaZahtjeva = data.filter((zahtjev) =>
-            gradoviModeriranjaId.includes(zahtjev.grad_id)
-          );
+          if (configService.isAdmin()) {
+            $scope.listaZahtjeva = data;
+          } else {
+            $scope.listaZahtjeva = data.filter((zahtjev) =>
+              gradoviModeriranjaId.includes(zahtjev.grad_id)
+            );
+          }
           if ($scope.listaZahtjeva.length > 0) {
-            console.log("yo");
             $scope.pageTour.config.push({
               targetId: "popis-zahtjeva",
               description: `Moderator vidi popis zahtjeva te potvrđuje/odbija zahtjeve korisnika za znamenitost. Posebno su
